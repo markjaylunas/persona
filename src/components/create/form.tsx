@@ -197,17 +197,6 @@ export default function CreatePersonaForm() {
 																);
 															}}
 														</form.AppField>
-
-														<form.AppField name={`customLinks[${i}].iconKey`}>
-															{(subField) => {
-																return (
-																	<subField.TextField
-																		label="Icon"
-																		placeholder="e.g. Cart"
-																	/>
-																);
-															}}
-														</form.AppField>
 													</CardContent>
 												</Card>
 											);
@@ -217,9 +206,7 @@ export default function CreatePersonaForm() {
 											type="button"
 											variant="outline"
 											size="sm"
-											onClick={() =>
-												field.pushValue({ label: "", url: "", iconKey: "" })
-											}
+											onClick={() => field.pushValue({ label: "", url: "" })}
 											className="gap-2 w-full"
 										>
 											<Plus className="size-4" />

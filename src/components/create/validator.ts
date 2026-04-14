@@ -20,7 +20,6 @@ const socialLinksSchema = z.object({
 
 // Custom Links: For the dynamic list in Image 1
 const customLinkSchema = z.object({
-	iconKey: z.string().optional(),
 	label: z.string().min(1, "Label is required"),
 	url: z.url("Valid URL is required"),
 });
