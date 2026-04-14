@@ -29,7 +29,7 @@ const customLinkSchema = z.object({
 export const personaCreateFormSchema = z.object({
 	// Profile Section
 	name: z.string().min(1, "Name is required").max(50),
-	about: z.string().max(160).optional(),
+	about: z.string().max(250).optional(),
 
 	// Avatar handled as a simple URL string
 	photoUrl: z
