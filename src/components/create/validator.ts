@@ -8,7 +8,7 @@ const link = z.url().optional().or(z.literal(""));
 // Social Links: Based on the fixed inputs in Image 0
 const socialLinksSchema = z.object({
 	facebook: link,
-	twitter: link,
+	x: link,
 	instagram: link,
 	github: link,
 	telegram: link,
@@ -57,7 +57,7 @@ export const defaultValues: PersonaCreateForm = {
 	photoUrl: "",
 	socials: {
 		facebook: "",
-		twitter: "",
+		x: "",
 		instagram: "",
 		github: "",
 		telegram: "",

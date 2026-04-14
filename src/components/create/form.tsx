@@ -21,14 +21,14 @@ export default function CreatePersonaForm() {
 	});
 
 	return (
-		<section className="flex flex-col md:flex-row gap-6 flex-wrap">
+		<section className="relative flex flex-col gap-6 flex-wrap md:flex-nowrap md:flex-row-reverse justify-between items-start">
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
 					e.stopPropagation();
 					void form.handleSubmit();
 				}}
-				className="space-y-6 max-w-md min-w-sm"
+				className="space-y-6 w-full md:w-auto"
 			>
 				{/* Name Field */}
 				<form.AppField name="name">
@@ -85,11 +85,11 @@ export default function CreatePersonaForm() {
 								/>
 							)}
 						</form.AppField>
-						<form.AppField name="socials.twitter">
+						<form.AppField name="socials.x">
 							{(field) => (
 								<field.TextField
-									label="Twitter URL"
-									placeholder="https://twitter.com/username"
+									label="X URL"
+									placeholder="https://x.com/username"
 									left={<Icon icon="x" className="fill-white" />}
 								/>
 							)}
@@ -229,9 +229,11 @@ export default function CreatePersonaForm() {
 				</form.AppForm>
 			</form>
 
-			<form.Subscribe selector={(state) => state.values}>
-				{(values) => <PersonaDetails persona={values} />}
-			</form.Subscribe>
+			<section className="md:sticky top-0 w-full md:w-auto">
+				<form.Subscribe selector={(state) => state.values}>
+					{(values) => <PersonaDetails persona={values} />}
+				</form.Subscribe>
+			</section>
 		</section>
 	);
 }
