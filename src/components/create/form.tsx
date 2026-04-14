@@ -1,6 +1,7 @@
-import { Plus, X } from "lucide-react";
+import { Mail, Plus, X } from "lucide-react";
 import { useAppForm } from "@/components/form/context";
 import { Button } from "@/components/ui/button";
+import { Icon } from "../icon/library";
 import PersonaDetails from "../persona/detail";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import type { PersonaCreateForm } from "./validator";
@@ -71,6 +72,7 @@ export default function CreatePersonaForm() {
 								<field.TextField
 									label="Email"
 									placeholder="your.email@example.com"
+									left={<Mail />}
 								/>
 							)}
 						</form.AppField>
@@ -79,6 +81,7 @@ export default function CreatePersonaForm() {
 								<field.TextField
 									label="Facebook URL"
 									placeholder="https://facebook.com/username"
+									left={<Icon icon="facebook" />}
 								/>
 							)}
 						</form.AppField>
@@ -87,6 +90,7 @@ export default function CreatePersonaForm() {
 								<field.TextField
 									label="Twitter URL"
 									placeholder="https://twitter.com/username"
+									left={<Icon icon="x" className="fill-white" />}
 								/>
 							)}
 						</form.AppField>
@@ -95,6 +99,7 @@ export default function CreatePersonaForm() {
 								<field.TextField
 									label="Instagram URL"
 									placeholder="https://instagram.com/username"
+									left={<Icon icon="instagram" />}
 								/>
 							)}
 						</form.AppField>
@@ -103,6 +108,7 @@ export default function CreatePersonaForm() {
 								<field.TextField
 									label="GitHub URL"
 									placeholder="https://github.com/username"
+									left={<Icon icon="github" />}
 								/>
 							)}
 						</form.AppField>
@@ -111,6 +117,7 @@ export default function CreatePersonaForm() {
 								<field.TextField
 									label="LinkedIn URL"
 									placeholder="https://linkedin.com/in/username"
+									left={<Icon icon="linkedin" />}
 								/>
 							)}
 						</form.AppField>
@@ -119,6 +126,7 @@ export default function CreatePersonaForm() {
 								<field.TextField
 									label="Telegram URL"
 									placeholder="https://t.me/username"
+									left={<Icon icon="telegram" />}
 								/>
 							)}
 						</form.AppField>
@@ -127,6 +135,7 @@ export default function CreatePersonaForm() {
 								<field.TextField
 									label="YouTube URL"
 									placeholder="https://youtube.com/@username"
+									left={<Icon icon="youtube" />}
 								/>
 							)}
 						</form.AppField>
@@ -135,6 +144,7 @@ export default function CreatePersonaForm() {
 								<field.TextField
 									label="WhatsApp URL"
 									placeholder="https://wa.me/number"
+									left={<Icon icon="whatsapp" />}
 								/>
 							)}
 						</form.AppField>
