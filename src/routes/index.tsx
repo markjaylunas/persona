@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
-import ThemeToggle from "@/components/ThemeToggle";
+import ThemeToggle from "@/components/layout/theme-toggle";
 import { buttonVariants } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({ component: App });
