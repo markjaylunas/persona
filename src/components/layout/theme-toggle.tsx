@@ -1,7 +1,7 @@
 import type { VariantProps } from "class-variance-authority";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "@/components/layout/theme-provider";
-import { Button, type buttonVariants } from "./ui/button";
+import { Button, type buttonVariants } from "../ui/button";
 
 export default function ModeToggle({
 	variant,

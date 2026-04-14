@@ -1,6 +1,7 @@
 import { Plus, X } from "lucide-react";
 import { useAppForm } from "@/components/form/context";
 import { Button } from "@/components/ui/button";
+import PersonaDetails from "../persona/detail";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import type { PersonaCreateForm } from "./validator";
 import { defaultValues, personaCreateFormSchema } from "./validator";
@@ -19,20 +20,14 @@ export default function CreatePersonaForm() {
 	});
 
 	return (
-		<>
-			<div className="mx-auto max-w-48">
-				<form.Subscribe selector={(state) => state.values}>
-					{(values) => <pre>{JSON.stringify(values, null, 2)}</pre>}
-				</form.Subscribe>
-			</div>
-
+		<section className="flex flex-col md:flex-row gap-6 flex-wrap">
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
 					e.stopPropagation();
 					void form.handleSubmit();
 				}}
-				className="space-y-6 max-w-md"
+				className="space-y-6 max-w-md min-w-sm"
 			>
 				{/* Name Field */}
 				<form.AppField name="name">
@@ -223,6 +218,10 @@ export default function CreatePersonaForm() {
 					<form.SubmitButton className="w-full">Submit</form.SubmitButton>
 				</form.AppForm>
 			</form>
-		</>
+
+			<form.Subscribe selector={(state) => state.values}>
+				{(values) => <PersonaDetails persona={values} />}
+			</form.Subscribe>
+		</section>
 	);
 }
