@@ -1,4 +1,4 @@
-/** biome-ignore-all lint/style/noNonNullAssertion: <explanation> */
+/** biome-ignore-all lint/style/noNonNullAssertion: <ignore> */
 import LZString from "lz-string";
 import {
 	type MinifiedPersona,
