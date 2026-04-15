@@ -1,4 +1,5 @@
 import { revalidateLogic } from "@tanstack/react-form";
+import { useNavigate } from "@tanstack/react-router";
 import { Mail, Plus, X } from "lucide-react";
 import { useAppForm } from "@/components/form/context";
 import { Button } from "@/components/ui/button";
@@ -13,9 +14,11 @@ import type { Persona } from "./validator";
 import { defaultValues, personaCreateFormSchema } from "./validator";
 
 export default function CreatePersonaForm() {
+	const navigate = useNavigate();
+
 	const handleSubmit = (values: Persona) => {
 		const encoded = encodePersona(values);
-		console.log(encoded);
+		navigate({ to: "/v/$persona", params: { persona: encoded } });
 	};
 
 	const form = useAppForm({
@@ -35,7 +38,7 @@ export default function CreatePersonaForm() {
 					e.stopPropagation();
 					void form.handleSubmit();
 				}}
-				className="flex-1 space-y-6 w-full md:w-auto max-w-md"
+				className="flex-1 min-w-xs space-y-6 w-full md:w-auto max-w-md"
 			>
 				{/* Name Field */}
 				<form.AppField name="name">

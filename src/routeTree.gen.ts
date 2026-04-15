@@ -9,11 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VRouteRouteImport } from './routes/v/route'
 import { Route as CreateRouteRouteImport } from './routes/create/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CreateIndexRouteImport } from './routes/create/index'
+import { Route as VPersonaRouteImport } from './routes/v/$persona'
 import { Route as ApiUploadImageRouteImport } from './routes/api/upload-image'
 
+const VRouteRoute = VRouteRouteImport.update({
+  id: '/v',
+  path: '/v',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CreateRouteRoute = CreateRouteRouteImport.update({
   id: '/create',
   path: '/create',
@@ -29,6 +36,11 @@ const CreateIndexRoute = CreateIndexRouteImport.update({
   path: '/',
   getParentRoute: () => CreateRouteRoute,
 } as any)
+const VPersonaRoute = VPersonaRouteImport.update({
+  id: '/$persona',
+  path: '/$persona',
+  getParentRoute: () => VRouteRoute,
+} as any)
 const ApiUploadImageRoute = ApiUploadImageRouteImport.update({
   id: '/api/upload-image',
   path: '/api/upload-image',
@@ -38,37 +50,64 @@ const ApiUploadImageRoute = ApiUploadImageRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/create': typeof CreateRouteRouteWithChildren
+  '/v': typeof VRouteRouteWithChildren
   '/api/upload-image': typeof ApiUploadImageRoute
+  '/v/$persona': typeof VPersonaRoute
   '/create/': typeof CreateIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/v': typeof VRouteRouteWithChildren
   '/api/upload-image': typeof ApiUploadImageRoute
+  '/v/$persona': typeof VPersonaRoute
   '/create': typeof CreateIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/create': typeof CreateRouteRouteWithChildren
+  '/v': typeof VRouteRouteWithChildren
   '/api/upload-image': typeof ApiUploadImageRoute
+  '/v/$persona': typeof VPersonaRoute
   '/create/': typeof CreateIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/create' | '/api/upload-image' | '/create/'
+  fullPaths:
+    | '/'
+    | '/create'
+    | '/v'
+    | '/api/upload-image'
+    | '/v/$persona'
+    | '/create/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/upload-image' | '/create'
-  id: '__root__' | '/' | '/create' | '/api/upload-image' | '/create/'
+  to: '/' | '/v' | '/api/upload-image' | '/v/$persona' | '/create'
+  id:
+    | '__root__'
+    | '/'
+    | '/create'
+    | '/v'
+    | '/api/upload-image'
+    | '/v/$persona'
+    | '/create/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CreateRouteRoute: typeof CreateRouteRouteWithChildren
+  VRouteRoute: typeof VRouteRouteWithChildren
   ApiUploadImageRoute: typeof ApiUploadImageRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/v': {
+      id: '/v'
+      path: '/v'
+      fullPath: '/v'
+      preLoaderRoute: typeof VRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/create': {
       id: '/create'
       path: '/create'
@@ -89,6 +128,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/create/'
       preLoaderRoute: typeof CreateIndexRouteImport
       parentRoute: typeof CreateRouteRoute
+    }
+    '/v/$persona': {
+      id: '/v/$persona'
+      path: '/$persona'
+      fullPath: '/v/$persona'
+      preLoaderRoute: typeof VPersonaRouteImport
+      parentRoute: typeof VRouteRoute
     }
     '/api/upload-image': {
       id: '/api/upload-image'
@@ -112,9 +158,21 @@ const CreateRouteRouteWithChildren = CreateRouteRoute._addFileChildren(
   CreateRouteRouteChildren,
 )
 
+interface VRouteRouteChildren {
+  VPersonaRoute: typeof VPersonaRoute
+}
+
+const VRouteRouteChildren: VRouteRouteChildren = {
+  VPersonaRoute: VPersonaRoute,
+}
+
+const VRouteRouteWithChildren =
+  VRouteRoute._addFileChildren(VRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CreateRouteRoute: CreateRouteRouteWithChildren,
+  VRouteRoute: VRouteRouteWithChildren,
   ApiUploadImageRoute: ApiUploadImageRoute,
 }
 export const routeTree = rootRouteImport
