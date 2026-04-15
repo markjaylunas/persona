@@ -1,24 +1,21 @@
 import { Activity, type ReactNode, useState } from "react";
-import { Field, FieldContent, FieldDescription, FieldLabel } from "../ui/field";
-import { Switch } from "../ui/switch";
+import { Checkbox } from "../ui/checkbox";
+import { Field, FieldContent, FieldLabel } from "../ui/field";
 
 export default function ToggleNode({
 	defaultNode,
 	customNode,
 	label,
-	description,
 }: {
 	defaultNode: ReactNode;
 	customNode: ReactNode;
 	label: string;
-	description?: string;
 }) {
 	const [isCustomNode, setIsCustomNode] = useState(false);
 
 	return (
 		<div className="flex flex-col gap-4">
-			{/* The Activity component keeps the state of the hidden node 
-			    without fully unmounting it from the tree. */}
+			{/* Activity preserves the state of the non-active node */}
 			<Activity mode={isCustomNode ? "hidden" : "visible"}>
 				{defaultNode}
 			</Activity>
@@ -27,16 +24,20 @@ export default function ToggleNode({
 				{customNode}
 			</Activity>
 
-			<Field orientation="horizontal" className="max-w-sm">
-				<FieldContent>
-					<FieldLabel htmlFor="switch-focus-mode">{label}</FieldLabel>
-					<FieldDescription>{description}</FieldDescription>
-				</FieldContent>
-				<Switch
-					id="switch-focus-mode"
+			<Field
+				orientation="horizontal"
+				className="max-w-sm flex items-center gap-2"
+			>
+				<Checkbox
+					id="toggle-custom-mode"
 					checked={isCustomNode}
-					onCheckedChange={setIsCustomNode}
+					onCheckedChange={(checked) => setIsCustomNode(!!checked)}
 				/>
+				<FieldContent>
+					<FieldLabel htmlFor="toggle-custom-mode" className="cursor-pointer">
+						{label}
+					</FieldLabel>
+				</FieldContent>
 			</Field>
 		</div>
 	);

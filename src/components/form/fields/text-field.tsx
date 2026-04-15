@@ -14,12 +14,14 @@ export default function TextField({
 	left,
 	right,
 	autoFocus,
+	children,
 }: {
 	label: string;
 	placeholder?: string;
 	left?: ReactNode;
 	right?: ReactNode;
 	autoFocus?: boolean;
+	children?: ReactNode;
 }) {
 	const field = useFieldContext<string>();
 
@@ -41,6 +43,8 @@ export default function TextField({
 				{left && <InputGroupAddon align="inline-start">{left}</InputGroupAddon>}
 				{right && <InputGroupAddon align="inline-end">{right}</InputGroupAddon>}
 			</InputGroup>
+
+			{children}
 
 			<FieldError
 				errors={field.state.meta.errors.map((v) => v.message)}

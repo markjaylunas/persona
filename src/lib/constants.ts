@@ -8,7 +8,6 @@ export const IMAGE_ACCEPTED_MIME_TYPES = [
 	"image/webp",
 ];
 
-export const IMAGE_UPLOAD_RATE_LIMIT =
-	env.VITE_NODE_ENV === "development" ? 100 : 5;
+export const IMAGE_UPLOAD_RATE_LIMIT = env.VITE_IMAGE_UPLOAD_RATE_LIMIT;
 export const IMAGE_UPLOAD_RATE_LIMIT_WINDOW_SECONDS =
-	env.VITE_NODE_ENV === "development" ? 60 * 60 : 60 * 60 * 24; // 1 day
+	env.VITE_IMAGE_UPLOAD_RATE_LIMIT_WINDOW_SECONDS;

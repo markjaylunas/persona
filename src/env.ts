@@ -14,9 +14,10 @@ export const env = createEnv({
 
 	client: {
 		VITE_APP_TITLE: z.string().min(1).optional(),
-		VITE_NODE_ENV: z
-			.enum(["development", "production", "test"])
-			.default("production"),
+		VITE_IMAGE_UPLOAD_RATE_LIMIT: z.coerce.number().default(5),
+		VITE_IMAGE_UPLOAD_RATE_LIMIT_WINDOW_SECONDS: z.coerce
+			.number()
+			.default(60 * 60 * 6), // 6 hours
 	},
 
 	/**

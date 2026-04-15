@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { encodePersona } from "@/lib/compression";
 import { IMAGE_ACCEPTED_MIME_TYPES } from "@/lib/constants";
 import { uploadToImgbb } from "@/lib/upload-to-imgbb";
+import ImagePreview from "../form/common/image-preview";
 import { Icon } from "../icon/library";
 import PersonaDetails from "../persona/detail";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -84,7 +85,12 @@ export default function CreatePersonaForm({
 								<field.TextField
 									label="Photo URL"
 									placeholder="https://example.com/photo.jpg"
-								/>
+								>
+									<ImagePreview
+										url={field.state.value ?? undefined}
+										alt="Photo"
+									/>
+								</field.TextField>
 							}
 							customNode={
 								<field.ImageFileField
