@@ -3,9 +3,12 @@ import { useState } from "react";
 import { useAppForm } from "@/components/form/context";
 import { Button } from "@/components/ui/button";
 import { decodePersona, encodePersona } from "@/lib/compression";
+import { IMAGE_ACCEPTED_MIME_TYPES } from "@/lib/constants";
+import { uploadToImgbb } from "@/lib/upload-to-imgbb";
 import { Icon } from "../icon/library";
 import PersonaDetails from "../persona/detail";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import ToggleNode from "./toggle-node";
 import type { Persona } from "./validator";
 import { defaultValues, personaCreateFormSchema } from "./validator";
 
@@ -32,6 +35,7 @@ export default function CreatePersonaForm() {
 		onSubmit: ({ value }) => handleSubmit(value),
 		validators: {
 			onSubmit: personaCreateFormSchema,
+			onChange: personaCreateFormSchema,
 		},
 	});
 
@@ -69,9 +73,22 @@ export default function CreatePersonaForm() {
 				{/* Photo URL Field */}
 				<form.AppField name="photoUrl">
 					{(field) => (
-						<field.TextField
-							label="Photo URL"
-							placeholder="https://example.com/photo.jpg"
+						<ToggleNode
+							defaultNode={
+								<field.TextField
+									label="Photo URL"
+									placeholder="https://example.com/photo.jpg"
+								/>
+							}
+							customNode={
+								<field.ImageFileField
+									label="Photo"
+									accept={IMAGE_ACCEPTED_MIME_TYPES.join(",")}
+									onUpload={async (file) => await uploadToImgbb(file)}
+									placeholder="Upload image"
+								/>
+							}
+							label="Don't have a photo URL? Upload instead"
 						/>
 					)}
 				</form.AppField>

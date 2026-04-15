@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { DatabaseZap, ShieldCheck } from "lucide-react";
 import CreateForm from "@/components/create/form";
 
-export const Route = createFileRoute("/create")({
+export const Route = createFileRoute("/create/")({
 	head: () => ({
 		meta: [
 			{ title: "Create Persona | Persona | Makje" },

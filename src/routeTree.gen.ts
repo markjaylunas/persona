@@ -9,10 +9,12 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as CreateRouteImport } from './routes/create'
+import { Route as CreateRouteRouteImport } from './routes/create/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CreateIndexRouteImport } from './routes/create/index'
+import { Route as ApiUploadImageRouteImport } from './routes/api/upload-image'
 
-const CreateRoute = CreateRouteImport.update({
+const CreateRouteRoute = CreateRouteRouteImport.update({
   id: '/create',
   path: '/create',
   getParentRoute: () => rootRouteImport,
@@ -22,31 +24,47 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CreateIndexRoute = CreateIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CreateRouteRoute,
+} as any)
+const ApiUploadImageRoute = ApiUploadImageRouteImport.update({
+  id: '/api/upload-image',
+  path: '/api/upload-image',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/create': typeof CreateRoute
+  '/create': typeof CreateRouteRouteWithChildren
+  '/api/upload-image': typeof ApiUploadImageRoute
+  '/create/': typeof CreateIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/create': typeof CreateRoute
+  '/api/upload-image': typeof ApiUploadImageRoute
+  '/create': typeof CreateIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/create': typeof CreateRoute
+  '/create': typeof CreateRouteRouteWithChildren
+  '/api/upload-image': typeof ApiUploadImageRoute
+  '/create/': typeof CreateIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/create'
+  fullPaths: '/' | '/create' | '/api/upload-image' | '/create/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/create'
-  id: '__root__' | '/' | '/create'
+  to: '/' | '/api/upload-image' | '/create'
+  id: '__root__' | '/' | '/create' | '/api/upload-image' | '/create/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CreateRoute: typeof CreateRoute
+  CreateRouteRoute: typeof CreateRouteRouteWithChildren
+  ApiUploadImageRoute: typeof ApiUploadImageRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -55,7 +73,7 @@ declare module '@tanstack/react-router' {
       id: '/create'
       path: '/create'
       fullPath: '/create'
-      preLoaderRoute: typeof CreateRouteImport
+      preLoaderRoute: typeof CreateRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -65,12 +83,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/create/': {
+      id: '/create/'
+      path: '/'
+      fullPath: '/create/'
+      preLoaderRoute: typeof CreateIndexRouteImport
+      parentRoute: typeof CreateRouteRoute
+    }
+    '/api/upload-image': {
+      id: '/api/upload-image'
+      path: '/api/upload-image'
+      fullPath: '/api/upload-image'
+      preLoaderRoute: typeof ApiUploadImageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface CreateRouteRouteChildren {
+  CreateIndexRoute: typeof CreateIndexRoute
+}
+
+const CreateRouteRouteChildren: CreateRouteRouteChildren = {
+  CreateIndexRoute: CreateIndexRoute,
+}
+
+const CreateRouteRouteWithChildren = CreateRouteRoute._addFileChildren(
+  CreateRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CreateRoute: CreateRoute,
+  CreateRouteRoute: CreateRouteRouteWithChildren,
+  ApiUploadImageRoute: ApiUploadImageRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

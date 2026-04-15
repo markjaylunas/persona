@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "persona",
+  "compatibility_date": "2025-09-02",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "@tanstack/react-start/server-entry",
+  "kv_namespaces": [
+    {
+      "binding": "RATE_LIMITER",
+      "id": "88c0d74f206d4718b55d7e593ec2f95e",
+      "remote": true
+    }
+  ]
+}

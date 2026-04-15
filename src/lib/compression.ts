@@ -47,24 +47,26 @@ const mapPersonaToMinified = (data: Persona) => {
 };
 
 const mapMinifiedToPersona = (data: MinifiedPersona): Persona => {
+	const s = data.s || {};
+
 	return {
 		name: data.n || "",
 		about: data.a || "",
-		photoUrl: data.p,
+		photoUrl: data.p || "",
 		socials: {
-			email: data.s?.e || "",
-			facebook: data.s?.f,
-			github: data.s?.g,
-			instagram: data.s?.i,
-			linkedin: data.s?.l,
-			telegram: data.s?.t,
-			whatsapp: data.s?.w || "",
-			x: data.s?.x,
-			youtube: data.s?.y,
+			email: s.e || "",
+			facebook: s.f || "",
+			github: s.g || "",
+			instagram: s.i || "",
+			linkedin: s.l || "",
+			telegram: s.t || "",
+			whatsapp: s.w || "",
+			x: s.x || "",
+			youtube: s.y || "",
 		},
 		customLinks: (data.c || []).map((link) => ({
-			label: link.l,
-			url: link.u,
+			label: link.l || "",
+			url: link.u || "",
 		})),
 	};
 };
