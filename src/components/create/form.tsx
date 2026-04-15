@@ -21,7 +21,15 @@ export default function CreatePersonaForm({
 	const navigate = useNavigate();
 
 	const handleSubmit = (values: Persona) => {
+		// encode persona
 		const encoded = encodePersona(values);
+
+		// update url for form state persistence via search params
+		const url = new URL(window.location.href);
+		url.searchParams.set("persona", encoded);
+		window.history.replaceState(null, "", url.toString());
+
+		// navigate to preview
 		navigate({
 			to: "/preview/$persona",
 			params: { persona: encoded },
@@ -34,16 +42,6 @@ export default function CreatePersonaForm({
 		validationLogic: revalidateLogic(),
 		validators: {
 			onDynamic: personaCreateFormSchema,
-		},
-		listeners: {
-			onBlur: () => {
-				const encoded = encodePersona(form.state.values);
-				navigate({
-					to: "/create",
-					search: { persona: encoded },
-					replace: true,
-				});
-			},
 		},
 	});
 
