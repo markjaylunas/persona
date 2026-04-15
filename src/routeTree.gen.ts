@@ -10,15 +10,22 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VRouteRouteImport } from './routes/v/route'
+import { Route as PreviewRouteRouteImport } from './routes/preview/route'
 import { Route as CreateRouteRouteImport } from './routes/create/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CreateIndexRouteImport } from './routes/create/index'
 import { Route as VPersonaRouteImport } from './routes/v/$persona'
+import { Route as PreviewPersonaRouteImport } from './routes/preview/$persona'
 import { Route as ApiUploadImageRouteImport } from './routes/api/upload-image'
 
 const VRouteRoute = VRouteRouteImport.update({
   id: '/v',
   path: '/v',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PreviewRouteRoute = PreviewRouteRouteImport.update({
+  id: '/preview',
+  path: '/preview',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CreateRouteRoute = CreateRouteRouteImport.update({
@@ -41,6 +48,11 @@ const VPersonaRoute = VPersonaRouteImport.update({
   path: '/$persona',
   getParentRoute: () => VRouteRoute,
 } as any)
+const PreviewPersonaRoute = PreviewPersonaRouteImport.update({
+  id: '/$persona',
+  path: '/$persona',
+  getParentRoute: () => PreviewRouteRoute,
+} as any)
 const ApiUploadImageRoute = ApiUploadImageRouteImport.update({
   id: '/api/upload-image',
   path: '/api/upload-image',
@@ -50,15 +62,19 @@ const ApiUploadImageRoute = ApiUploadImageRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/create': typeof CreateRouteRouteWithChildren
+  '/preview': typeof PreviewRouteRouteWithChildren
   '/v': typeof VRouteRouteWithChildren
   '/api/upload-image': typeof ApiUploadImageRoute
+  '/preview/$persona': typeof PreviewPersonaRoute
   '/v/$persona': typeof VPersonaRoute
   '/create/': typeof CreateIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/preview': typeof PreviewRouteRouteWithChildren
   '/v': typeof VRouteRouteWithChildren
   '/api/upload-image': typeof ApiUploadImageRoute
+  '/preview/$persona': typeof PreviewPersonaRoute
   '/v/$persona': typeof VPersonaRoute
   '/create': typeof CreateIndexRoute
 }
@@ -66,8 +82,10 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/create': typeof CreateRouteRouteWithChildren
+  '/preview': typeof PreviewRouteRouteWithChildren
   '/v': typeof VRouteRouteWithChildren
   '/api/upload-image': typeof ApiUploadImageRoute
+  '/preview/$persona': typeof PreviewPersonaRoute
   '/v/$persona': typeof VPersonaRoute
   '/create/': typeof CreateIndexRoute
 }
@@ -76,18 +94,29 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/create'
+    | '/preview'
     | '/v'
     | '/api/upload-image'
+    | '/preview/$persona'
     | '/v/$persona'
     | '/create/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/v' | '/api/upload-image' | '/v/$persona' | '/create'
+  to:
+    | '/'
+    | '/preview'
+    | '/v'
+    | '/api/upload-image'
+    | '/preview/$persona'
+    | '/v/$persona'
+    | '/create'
   id:
     | '__root__'
     | '/'
     | '/create'
+    | '/preview'
     | '/v'
     | '/api/upload-image'
+    | '/preview/$persona'
     | '/v/$persona'
     | '/create/'
   fileRoutesById: FileRoutesById
@@ -95,6 +124,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CreateRouteRoute: typeof CreateRouteRouteWithChildren
+  PreviewRouteRoute: typeof PreviewRouteRouteWithChildren
   VRouteRoute: typeof VRouteRouteWithChildren
   ApiUploadImageRoute: typeof ApiUploadImageRoute
 }
@@ -106,6 +136,13 @@ declare module '@tanstack/react-router' {
       path: '/v'
       fullPath: '/v'
       preLoaderRoute: typeof VRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/preview': {
+      id: '/preview'
+      path: '/preview'
+      fullPath: '/preview'
+      preLoaderRoute: typeof PreviewRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/create': {
@@ -136,6 +173,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VPersonaRouteImport
       parentRoute: typeof VRouteRoute
     }
+    '/preview/$persona': {
+      id: '/preview/$persona'
+      path: '/$persona'
+      fullPath: '/preview/$persona'
+      preLoaderRoute: typeof PreviewPersonaRouteImport
+      parentRoute: typeof PreviewRouteRoute
+    }
     '/api/upload-image': {
       id: '/api/upload-image'
       path: '/api/upload-image'
@@ -158,6 +202,18 @@ const CreateRouteRouteWithChildren = CreateRouteRoute._addFileChildren(
   CreateRouteRouteChildren,
 )
 
+interface PreviewRouteRouteChildren {
+  PreviewPersonaRoute: typeof PreviewPersonaRoute
+}
+
+const PreviewRouteRouteChildren: PreviewRouteRouteChildren = {
+  PreviewPersonaRoute: PreviewPersonaRoute,
+}
+
+const PreviewRouteRouteWithChildren = PreviewRouteRoute._addFileChildren(
+  PreviewRouteRouteChildren,
+)
+
 interface VRouteRouteChildren {
   VPersonaRoute: typeof VPersonaRoute
 }
@@ -172,6 +228,7 @@ const VRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CreateRouteRoute: CreateRouteRouteWithChildren,
+  PreviewRouteRoute: PreviewRouteRouteWithChildren,
   VRouteRoute: VRouteRouteWithChildren,
   ApiUploadImageRoute: ApiUploadImageRoute,
 }

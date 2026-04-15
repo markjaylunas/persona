@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { DatabaseZap, ShieldCheck } from "lucide-react";
 import CreateForm from "@/components/create/form";
+import { decodePersona } from "@/lib/compression";
+import { createRouteSearchParamValidator } from "@/lib/route-validators";
 
 export const Route = createFileRoute("/create/")({
 	head: () => ({
@@ -44,10 +46,21 @@ export const Route = createFileRoute("/create/")({
 			},
 		],
 	}),
+	validateSearch: createRouteSearchParamValidator,
+	loaderDeps: ({ search: { persona } }) => ({ persona }),
+	loader: ({ deps }) => {
+		if (deps.persona) {
+			const persona = decodePersona(deps.persona);
+			return { persona };
+		}
+		return { persona: null };
+	},
+	ssr: false,
 	component: RouteComponent,
 });
 
 function RouteComponent() {
+	const { persona } = Route.useLoaderData();
 	return (
 		<main className="relative min-h-screen m-4">
 			{/* Info Section */}
@@ -90,7 +103,7 @@ function RouteComponent() {
 				</section>
 			</header>
 
-			<CreateForm />
+			<CreateForm defaultPersona={persona ?? undefined} />
 		</main>
 	);
 }

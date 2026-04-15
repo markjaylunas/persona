@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { getRequestHeaders } from "@tanstack/react-start/server";
 import { imgbbResponseSchema } from "@/components/create/validator";
+import { env } from "@/env";
 import {
 	IMAGE_UPLOAD_RATE_LIMIT,
 	IMAGE_UPLOAD_RATE_LIMIT_WINDOW_SECONDS,
@@ -51,7 +52,7 @@ export const Route = createFileRoute("/api/upload-image")({
 					const imgbbFormData = new FormData();
 					imgbbFormData.append("image", file);
 
-					const IMGBB_API_KEY = process.env.IMGBB_API_KEY;
+					const IMGBB_API_KEY = env.IMGBB_API_KEY;
 
 					const response = await fetch(
 						`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`,

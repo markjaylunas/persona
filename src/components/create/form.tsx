@@ -1,6 +1,6 @@
 import { revalidateLogic } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
-import { Mail, Plus, X } from "lucide-react";
+import { Eye, Mail, Plus, X } from "lucide-react";
 import { useAppForm } from "@/components/form/context";
 import { Button } from "@/components/ui/button";
 import { encodePersona } from "@/lib/compression";
@@ -13,20 +13,37 @@ import ToggleNode from "./toggle-node";
 import type { Persona } from "./validator";
 import { defaultValues, personaCreateFormSchema } from "./validator";
 
-export default function CreatePersonaForm() {
+export default function CreatePersonaForm({
+	defaultPersona,
+}: {
+	defaultPersona?: Persona;
+}) {
 	const navigate = useNavigate();
 
 	const handleSubmit = (values: Persona) => {
 		const encoded = encodePersona(values);
-		navigate({ to: "/v/$persona", params: { persona: encoded } });
+		navigate({
+			to: "/preview/$persona",
+			params: { persona: encoded },
+		});
 	};
 
 	const form = useAppForm({
-		defaultValues,
+		defaultValues: defaultPersona ?? defaultValues,
 		onSubmit: ({ value }) => handleSubmit(value),
 		validationLogic: revalidateLogic(),
 		validators: {
 			onDynamic: personaCreateFormSchema,
+		},
+		listeners: {
+			onBlur: () => {
+				const encoded = encodePersona(form.state.values);
+				navigate({
+					to: "/create",
+					search: { persona: encoded },
+					replace: true,
+				});
+			},
 		},
 	});
 
@@ -248,7 +265,10 @@ export default function CreatePersonaForm() {
 				</Card>
 
 				<form.AppForm>
-					<form.SubmitButton className="w-full">Submit</form.SubmitButton>
+					<form.SubmitButton className="w-full">
+						<Eye className="size-4 mr-0.5" />
+						View Full Preview
+					</form.SubmitButton>
 				</form.AppForm>
 			</form>
 
