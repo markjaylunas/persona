@@ -1,3 +1,4 @@
+import { revalidateLogic } from "@tanstack/react-form";
 import { Mail, Plus, X } from "lucide-react";
 import { useState } from "react";
 import { useAppForm } from "@/components/form/context";
@@ -33,9 +34,9 @@ export default function CreatePersonaForm() {
 	const form = useAppForm({
 		defaultValues,
 		onSubmit: ({ value }) => handleSubmit(value),
+		validationLogic: revalidateLogic(),
 		validators: {
-			onSubmit: personaCreateFormSchema,
-			onChange: personaCreateFormSchema,
+			onDynamic: personaCreateFormSchema,
 		},
 	});
 
