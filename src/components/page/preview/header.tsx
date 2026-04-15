@@ -1,5 +1,5 @@
-import { Link, useParams } from "@tanstack/react-router";
-import { ChevronDownIcon, Copy, Edit, Share2 } from "lucide-react";
+import { Link, useNavigate, useParams } from "@tanstack/react-router";
+import { ArrowRight, ChevronDownIcon, Copy, Edit, Share2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
@@ -15,8 +15,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export default function PreviewHeader() {
+	const navigate = useNavigate();
 	const { persona } = useParams({ from: "/preview/$persona" });
 	const linkToPersona = `${window.location.origin}/v/${persona}`;
+
+	const handleGotoPublish = () => navigate({ to: `/v/${persona}` });
 
 	const handleCopy = () => {
 		navigator.clipboard.writeText(linkToPersona);
@@ -38,9 +41,6 @@ export default function PreviewHeader() {
 				if (error instanceof Error) {
 					toast.error(error.message);
 				}
-			})
-			.then(() => {
-				toast.success("Shared successfully!");
 			});
 	};
 	return (
@@ -64,15 +64,28 @@ export default function PreviewHeader() {
 										Publish <ChevronDownIcon />
 									</Button>
 								</DropdownMenuTrigger>
-								<DropdownMenuContent align="end" className="w-44">
+								<DropdownMenuContent align="end">
 									<DropdownMenuGroup>
 										<DropdownMenuLabel>Publish</DropdownMenuLabel>
 										<DropdownMenuSeparator />
-										<DropdownMenuItem onClick={handleCopy}>
+										<DropdownMenuItem
+											className="cursor-pointer"
+											onClick={handleGotoPublish}
+										>
+											<ArrowRight className="size-4 mr-0.5" />
+											Open Published
+										</DropdownMenuItem>
+										<DropdownMenuItem
+											className="cursor-pointer"
+											onClick={handleCopy}
+										>
 											<Copy className="size-4 mr-0.5" />
 											Copy Link
 										</DropdownMenuItem>
-										<DropdownMenuItem onClick={handleShare}>
+										<DropdownMenuItem
+											className="cursor-pointer"
+											onClick={handleShare}
+										>
 											<Share2 className="size-4 mr-0.5" />
 											Share
 										</DropdownMenuItem>
