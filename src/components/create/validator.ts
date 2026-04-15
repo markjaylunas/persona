@@ -43,12 +43,18 @@ export const personaCreateFormSchema = z
 		// Custom Links Section
 		customLinks: z.array(customLinkSchema),
 	})
-	.refine((data) => {
-		return (
-			Object.values(data.socials).some((value) => value !== "") ||
-			data.customLinks.length > 0
-		);
-	}, "At least one social link or custom link is required");
+	.refine(
+		(data) => {
+			return (
+				Object.values(data.socials).some((value) => value !== "") ||
+				data.customLinks.length > 0
+			);
+		},
+		{
+			message: "At least one social link or custom link is required",
+			path: ["links"],
+		},
+	);
 
 // --- Types ---
 

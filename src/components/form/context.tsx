@@ -5,6 +5,7 @@ const TextField = lazy(() => import("./fields/text-field"));
 const TextareaField = lazy(() => import("./fields/textarea-field"));
 const SubmitButton = lazy(() => import("./subscribe/submit-button"));
 const ImageFileField = lazy(() => import("./fields/image-file-field"));
+const FormErrors = lazy(() => import("./subscribe/form-errors"));
 
 export const { fieldContext, formContext, useFieldContext, useFormContext } =
 	createFormHookContexts();
@@ -19,5 +20,6 @@ export const { useAppForm } = createFormHook({
 	},
 	formComponents: {
 		SubmitButton,
+		FormErrors,
 	},
 });

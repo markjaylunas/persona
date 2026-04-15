@@ -269,6 +269,10 @@ export default function CreatePersonaForm({
 				</Card>
 
 				<form.AppForm>
+					<div className="text-center">
+						<form.FormErrors errorPath="links" />
+					</div>
+
 					<form.SubmitButton className="w-full">
 						<Eye className="size-4 mr-0.5" />
 						View Full Preview
