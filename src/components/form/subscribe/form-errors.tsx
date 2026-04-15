@@ -15,8 +15,6 @@ export default function FormErrors({
 		<form.Subscribe selector={(state) => state.errors}>
 			{(errors) => {
 				const message = findErrorMessage(errors, errorPath, "message");
-				console.log({ errors });
-				console.log({ message });
 				if (!message) return children;
 
 				return (
