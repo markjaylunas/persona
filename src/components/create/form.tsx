@@ -1,15 +1,20 @@
 import { Mail, Plus, X } from "lucide-react";
+import { useState } from "react";
 import { useAppForm } from "@/components/form/context";
 import { Button } from "@/components/ui/button";
+import { encodePersona } from "@/lib/compression";
 import { Icon } from "../icon/library";
 import PersonaDetails from "../persona/detail";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import type { PersonaCreateForm } from "./validator";
+import type { Persona } from "./validator";
 import { defaultValues, personaCreateFormSchema } from "./validator";
 
 export default function CreatePersonaForm() {
-	const handleSubmit = (values: PersonaCreateForm) => {
-		console.log({ values });
+	const [compressed, setCompressed] = useState<string | null>(null);
+
+	const handleSubmit = (values: Persona) => {
+		const encoded = encodePersona(values);
+		setCompressed(encoded);
 	};
 
 	const form = useAppForm({
@@ -22,6 +27,7 @@ export default function CreatePersonaForm() {
 
 	return (
 		<section className="relative flex flex-col gap-6 flex-wrap md:flex-nowrap md:flex-row-reverse justify-between items-start">
+			<p className="text-xs">{compressed}</p>
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();

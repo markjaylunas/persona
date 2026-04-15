@@ -46,12 +46,12 @@ export const personaCreateFormSchema = z.object({
 
 // --- Types ---
 
-export type PersonaCreateForm = z.infer<typeof personaCreateFormSchema>;
+export type Persona = z.infer<typeof personaCreateFormSchema>;
 export type CustomLink = z.infer<typeof customLinkSchema>;
 
 // --- Default Values ---
 
-export const defaultValues: PersonaCreateForm = {
+export const defaultValues: Persona = {
 	name: "",
 	about: "",
 	photoUrl: "",
@@ -68,3 +68,28 @@ export const defaultValues: PersonaCreateForm = {
 	},
 	customLinks: [],
 };
+
+export const minifiedPersonaSchema = z.object({
+	n: personaCreateFormSchema.shape.name,
+	a: personaCreateFormSchema.shape.about,
+	p: personaCreateFormSchema.shape.photoUrl,
+	s: z.object({
+		e: link,
+		f: link,
+		g: link,
+		i: link,
+		l: link,
+		t: link,
+		w: link,
+		x: link,
+		y: link,
+	}),
+	c: z.array(
+		z.object({
+			l: customLinkSchema.shape.label,
+			u: customLinkSchema.shape.url,
+		}),
+	),
+});
+
+export type MinifiedPersona = z.infer<typeof minifiedPersonaSchema>;
