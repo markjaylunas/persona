@@ -20,14 +20,12 @@ export default function PersonaDetails({ persona }: { persona: Persona }) {
 				href={href}
 				target="_blank"
 				rel="noopener noreferrer"
-				className="hover:opacity-80 transition-opacity duration-200 ease-in-out"
+				className="hover:opacity-80 transition-opacity duration-200 ease-in-out my-auto"
 			>
 				{key === "email" ? (
-					<Mail className="w-5 h-5 text-background" />
-				) : key === "x" ? (
-					<Icon icon="x" className="w-5 h-5" />
+					<Mail className=" size-6 text-background" />
 				) : (
-					<Icon icon={key as IconLibrary} className="w-5 h-5" />
+					<Icon icon={key as IconLibrary} className="w-8 h-auto" />
 				)}
 				<span className="sr-only">{key}</span>
 			</a>
