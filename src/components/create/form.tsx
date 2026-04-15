@@ -1,9 +1,8 @@
 import { revalidateLogic } from "@tanstack/react-form";
 import { Mail, Plus, X } from "lucide-react";
-import { useState } from "react";
 import { useAppForm } from "@/components/form/context";
 import { Button } from "@/components/ui/button";
-import { decodePersona, encodePersona } from "@/lib/compression";
+import { encodePersona } from "@/lib/compression";
 import { IMAGE_ACCEPTED_MIME_TYPES } from "@/lib/constants";
 import { uploadToImgbb } from "@/lib/upload-to-imgbb";
 import { Icon } from "../icon/library";
@@ -14,21 +13,9 @@ import type { Persona } from "./validator";
 import { defaultValues, personaCreateFormSchema } from "./validator";
 
 export default function CreatePersonaForm() {
-	const [compressed, setCompressed] = useState<string | null>(null);
-	const [decoded, setDecoded] = useState<Persona | null>(null);
-
 	const handleSubmit = (values: Persona) => {
 		const encoded = encodePersona(values);
-		setCompressed(encoded);
-	};
-
-	const handleDecode = () => {
-		if (!compressed) return;
-		try {
-			setDecoded(decodePersona(compressed));
-		} catch (error) {
-			console.error(error);
-		}
+		console.log(encoded);
 	};
 
 	const form = useAppForm({
@@ -41,14 +28,14 @@ export default function CreatePersonaForm() {
 	});
 
 	return (
-		<section className="relative flex flex-col gap-6 flex-wrap md:flex-nowrap md:flex-row-reverse justify-between items-start">
+		<section className="relative flex flex-col-reverse gap-6 flex-wrap md:flex-nowrap md:flex-row justify-between items-start">
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
 					e.stopPropagation();
 					void form.handleSubmit();
 				}}
-				className="space-y-6 w-full md:w-auto"
+				className="flex-1 space-y-6 w-full md:w-auto max-w-md"
 			>
 				{/* Name Field */}
 				<form.AppField name="name">
@@ -262,25 +249,10 @@ export default function CreatePersonaForm() {
 				</form.AppForm>
 			</form>
 
-			<section className="md:sticky top-0 w-full md:w-auto">
+			<section className="flex-auto md:sticky top-0 w-full md:w-auto mx-auto">
 				<form.Subscribe selector={(state) => state.values}>
 					{(values) => <PersonaDetails persona={values} />}
 				</form.Subscribe>
-
-				<Button
-					type="button"
-					variant="outline"
-					size="sm"
-					disabled={!compressed}
-					onClick={handleDecode}
-					className="flex gap-2"
-				>
-					<Plus className="size-4" />
-					Decode
-				</Button>
-				<p className="text-xs">{compressed}</p>
-
-				<p>{JSON.stringify(decoded)}</p>
 			</section>
 		</section>
 	);
