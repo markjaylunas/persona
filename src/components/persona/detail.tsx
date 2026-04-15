@@ -1,15 +1,11 @@
 import { Globe, Mail } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import type { PersonaCreateForm } from "../create/validator";
+import type { Persona } from "../create/validator";
 import { Icon, type IconLibrary } from "../icon/library";
 import { Card, CardContent, CardTitle } from "../ui/card";
 import { Item, ItemContent, ItemMedia, ItemTitle } from "../ui/item";
 
-export default function PersonaDetails({
-	persona,
-}: {
-	persona: PersonaCreateForm;
-}) {
+export default function PersonaDetails({ persona }: { persona: Persona }) {
 	const hasSocials = Object.values(persona.socials).some((val) => val);
 
 	const renderSocialIcon = (key: string, url: string) => {
