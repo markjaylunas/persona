@@ -80,7 +80,27 @@ export const defaultValues: Persona = {
 	},
 	customLinks: [],
 };
-
+export const mockPersonaValues: Persona = {
+	name: "Makje",
+	about:
+		"Full-stack Web Developer with a passion for learning and building. From back-end logic to front-end polish, I enjoy solving complex problems and creating modern solutions.",
+	photoUrl: "https://makje.com/makje-textured.avif",
+	socials: {
+		github: "https://github.com/markjaylunas",
+		linkedin: "https://linkedin.com/in/markjaylunas",
+		email: "markjay.lunas@gmail.com",
+	},
+	customLinks: [
+		{
+			label: "Portfolio",
+			url: "https://makje.com",
+		},
+		{
+			label: "Projects",
+			url: "https://makje.com/project",
+		},
+	],
+};
 export const minifiedPersonaSchema = z.object({
 	n: personaCreateFormSchema.shape.name,
 	a: personaCreateFormSchema.shape.about,

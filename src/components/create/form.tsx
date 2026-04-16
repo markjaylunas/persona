@@ -1,6 +1,6 @@
 import { revalidateLogic } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
-import { Eye, Mail, Plus, X } from "lucide-react";
+import { Eye, Mail, Plus, RotateCw, Sparkles, X } from "lucide-react";
 import { useAppForm } from "@/components/form/context";
 import { Button } from "@/components/ui/button";
 import { encodePersona } from "@/lib/compression";
@@ -9,10 +9,15 @@ import { uploadToImgbb } from "@/lib/upload-to-imgbb";
 import ImagePreview from "../form/common/image-preview";
 import { Icon } from "../icon/library";
 import PersonaDetails from "../persona/detail";
+import { ButtonGroup } from "../ui/button-group";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import ToggleNode from "./toggle-node";
 import type { Persona } from "./validator";
-import { defaultValues, personaCreateFormSchema } from "./validator";
+import {
+	defaultValues,
+	mockPersonaValues,
+	personaCreateFormSchema,
+} from "./validator";
 
 export default function CreatePersonaForm({
 	defaultPersona,
@@ -278,6 +283,30 @@ export default function CreatePersonaForm({
 						View Full Preview
 					</form.SubmitButton>
 				</form.AppForm>
+
+				<ButtonGroup>
+					<Button
+						type="button"
+						variant="outline"
+						size="sm"
+						onClick={() => form.reset(defaultPersona ?? defaultValues)}
+						className="gap-2 w-full"
+					>
+						<RotateCw className="size-4" />
+						Reset
+					</Button>
+
+					<Button
+						type="button"
+						variant="outline"
+						size="sm"
+						onClick={() => form.reset(mockPersonaValues)}
+						className="gap-2 w-full"
+					>
+						<Sparkles className="size-4" />
+						Sample
+					</Button>
+				</ButtonGroup>
 			</form>
 
 			<section className="flex-auto md:sticky top-0 w-full md:w-auto mx-auto">
