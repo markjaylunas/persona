@@ -61,13 +61,13 @@ export default function PersonaDetails({ persona }: { persona: Persona }) {
 				<div className="h-4" />
 
 				{hasSocials && (
-					<Item className="w-fit bg-muted dark:bg-foreground">
-						<ItemContent>
-							<ItemTitle className="sr-only">Socials</ItemTitle>
+					<Item className=" bg-muted dark:bg-foreground">
+						<ItemContent className="flex justify-center gap-6 items-center flex-row flex-wrap">
+							{Object.entries(persona.socials).map(([key, url]) => (
+								<ItemMedia key={key}>{renderSocialIcon(key, url)}</ItemMedia>
+							))}
 						</ItemContent>
-						{Object.entries(persona.socials).map(([key, url]) => (
-							<ItemMedia key={key}>{renderSocialIcon(key, url)}</ItemMedia>
-						))}
+						<ItemTitle className="sr-only">Socials</ItemTitle>
 					</Item>
 				)}
 
