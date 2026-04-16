@@ -1,8 +1,7 @@
-import { Globe, Mail } from "lucide-react";
+import { ArrowUpRight, Globe, Mail } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { Persona } from "../create/validator";
 import { Icon, type IconLibrary } from "../icon/library";
-import { Card, CardContent, CardTitle } from "../ui/card";
 import { Item, ItemContent, ItemMedia, ItemTitle } from "../ui/item";
 
 export default function PersonaDetails({ persona }: { persona: Persona }) {
@@ -23,7 +22,7 @@ export default function PersonaDetails({ persona }: { persona: Persona }) {
 				className="group/social hover:opacity-80 transition-opacity duration-200 ease-in-out my-auto px-2"
 			>
 				{key === "email" ? (
-					<Mail className=" size-6 text-background group-hover/social:scale-105 transition-transform duration-200 ease-in-out" />
+					<Mail className=" size-6 dark:text-background group-hover/social:scale-105 transition-transform duration-200 ease-in-out" />
 				) : (
 					<Icon
 						icon={key as IconLibrary}
@@ -36,7 +35,7 @@ export default function PersonaDetails({ persona }: { persona: Persona }) {
 	};
 
 	return (
-		<section className="flex justify-center items-center gap-12">
+		<section className="flex justify-center items-center gap-12 ">
 			<div className="flex flex-col items-center px-6 py-10 gap-4">
 				<Avatar className="w-24 h-24 border">
 					<AvatarImage
@@ -54,7 +53,7 @@ export default function PersonaDetails({ persona }: { persona: Persona }) {
 				</h1>
 
 				{persona.about && (
-					<p className="text-[15px] text-foreground/80 text-center leading-relaxed">
+					<p className="text-foreground/80 text-center text-sm leading-relaxed text-balance max-w-2xl">
 						{persona.about}
 					</p>
 				)}
@@ -62,14 +61,14 @@ export default function PersonaDetails({ persona }: { persona: Persona }) {
 				<div className="h-4" />
 
 				{hasSocials && (
-					<Card className="bg-primary">
-						<CardContent className="flex flex-wrap justify-center gap-4">
-							<CardTitle className="sr-only">Socials</CardTitle>
-							{Object.entries(persona.socials).map(([key, url]) =>
-								renderSocialIcon(key, url),
-							)}
-						</CardContent>
-					</Card>
+					<Item className="w-fit bg-muted dark:bg-foreground">
+						<ItemContent>
+							<ItemTitle className="sr-only">Socials</ItemTitle>
+						</ItemContent>
+						{Object.entries(persona.socials).map(([key, url]) => (
+							<ItemMedia key={key}>{renderSocialIcon(key, url)}</ItemMedia>
+						))}
+					</Item>
 				)}
 
 				<div className="h-6" />
@@ -85,13 +84,16 @@ export default function PersonaDetails({ persona }: { persona: Persona }) {
 								rel="noopener noreferrer"
 								className="hover:opacity-80 transition-opacity duration-200 ease-in-out"
 							>
-								<Item variant="muted">
+								<Item variant="muted" className="">
 									<ItemMedia>
 										<Globe className="w-5 h-5 mr-3 text-slate-500 dark:text-slate-300" />
 									</ItemMedia>
 									<ItemContent>
 										<ItemTitle>{link.label}</ItemTitle>
 									</ItemContent>
+									<ItemMedia>
+										<ArrowUpRight className="w-5 h-5 mr-3 text-slate-500 dark:text-slate-300" />
+									</ItemMedia>
 								</Item>
 							</a>
 						);
