@@ -1,11 +1,20 @@
 import { revalidateLogic } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
-import { Eye, Mail, Plus, RotateCw, Sparkles, X } from "lucide-react";
+import {
+	Eye,
+	Mail,
+	Plus,
+	RotateCcw,
+	RotateCw,
+	Sparkles,
+	X,
+} from "lucide-react";
 import { useAppForm } from "@/components/form/context";
 import { Button } from "@/components/ui/button";
 import { encodePersona } from "@/lib/compression";
 import { IMAGE_ACCEPTED_MIME_TYPES } from "@/lib/constants";
 import { uploadToImgbb } from "@/lib/upload-to-imgbb";
+import { cn } from "@/lib/utils";
 import ImagePreview from "../form/common/image-preview";
 import { Icon } from "../icon/library";
 import PersonaDetails from "../persona/detail";
@@ -59,7 +68,7 @@ export default function CreatePersonaForm({
 					e.stopPropagation();
 					void form.handleSubmit();
 				}}
-				className="flex-1 min-w-xs space-y-6 w-full md:w-auto max-w-md"
+				className="flex-1 min-w-xs sm:min-w-sm space-y-6 w-full md:w-auto max-w-md"
 			>
 				{/* Name Field */}
 				<form.AppField name="name">
@@ -282,31 +291,43 @@ export default function CreatePersonaForm({
 						<Eye className="size-4 mr-0.5" />
 						View Full Preview
 					</form.SubmitButton>
+					<ButtonGroup className="w-full">
+						<Button
+							type="button"
+							variant="outline"
+							size="sm"
+							onClick={() => form.reset(defaultValues)}
+							className={cn("w-1/2", defaultPersona && "w-1/3")}
+						>
+							<RotateCw className="size-4 mr-1" />
+							Clear{" "}
+						</Button>
+
+						{defaultPersona && (
+							<Button
+								type="button"
+								variant="outline"
+								size="sm"
+								onClick={() => form.reset(defaultPersona)}
+								className="w-1/3"
+							>
+								<RotateCcw className="size-4 mr-1" />
+								Reset
+							</Button>
+						)}
+
+						<Button
+							type="button"
+							variant="outline"
+							size="sm"
+							onClick={() => form.reset(mockPersonaValues)}
+							className={cn("w-1/2", defaultPersona && "w-1/3")}
+						>
+							<Sparkles className="size-4 mr-1" />
+							Sample
+						</Button>
+					</ButtonGroup>
 				</form.AppForm>
-
-				<ButtonGroup>
-					<Button
-						type="button"
-						variant="outline"
-						size="sm"
-						onClick={() => form.reset(defaultPersona ?? defaultValues)}
-						className="gap-2 w-full"
-					>
-						<RotateCw className="size-4" />
-						Reset
-					</Button>
-
-					<Button
-						type="button"
-						variant="outline"
-						size="sm"
-						onClick={() => form.reset(mockPersonaValues)}
-						className="gap-2 w-full"
-					>
-						<Sparkles className="size-4" />
-						Sample
-					</Button>
-				</ButtonGroup>
 			</form>
 
 			<section className="flex-auto md:sticky top-0 w-full md:w-auto mx-auto">
