@@ -5,7 +5,17 @@
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/inter";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark {
+  &:is(.dark *) {
+    @slot
+  }
+  @media (prefers-color-scheme: dark) {
+    &:is(.dark *){
+      @slot
+    }
+  }
+};
+
 
 @theme inline {
     --font-heading: var(--font-sans);

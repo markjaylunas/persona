@@ -1,7 +1,8 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
-import { ThemeProvider } from "@/components/layout/theme-provider";
+import { getThemeServerFn } from "@/components/layout/theme";
+import { cn } from "@/lib/utils";
 import appCss from "../styles.css?url";
 
 export const Route = createRootRoute({
@@ -25,19 +26,19 @@ export const Route = createRootRoute({
 			},
 		],
 	}),
+	beforeLoad: async () => ({ theme: await getThemeServerFn() }),
 	shellComponent: RootDocument,
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+	const { theme } = Route.useRouteContext();
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<head>
 				<HeadContent />
 			</head>
-			<body className="font-sans antialiased wrap-anywhere">
-				<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-					{children}
-				</ThemeProvider>
+			<body className={cn(theme, "font-sans antialiased wrap-anywhere")}>
+				{children}
 				<TanStackDevtools
 					config={{
 						position: "bottom-right",
