@@ -61,7 +61,7 @@ export default function PersonaDetails({ persona }: { persona: Persona }) {
 				<div className="h-4" />
 
 				{hasSocials && (
-					<section className="bg-muted dark:bg-foreground rounded-xl">
+					<section className="bg-foreground/5 dark:bg-foreground rounded-full">
 						<span className="sr-only">Socials</span>
 						<ul className="flex flex-row flex-wrap justify-center items-center gap-6 px-6 py-1">
 							{Object.entries(persona.socials)
@@ -86,7 +86,7 @@ export default function PersonaDetails({ persona }: { persona: Persona }) {
 								rel="noopener noreferrer"
 								className="hover:opacity-80 transition-opacity duration-200 ease-in-out"
 							>
-								<Item variant="muted" className="">
+								<Item className="bg-primary-foreground dark:bg-muted">
 									<ItemMedia>
 										<Globe className="w-5 h-5 mr-3 text-slate-500 dark:text-slate-300" />
 									</ItemMedia>
