@@ -50,7 +50,7 @@ export const Route = createFileRoute("/_creation/create/")({
 	loaderDeps: ({ search: { persona } }) => ({ persona }),
 	loader: ({ deps }) => {
 		if (deps.persona) {
-			const persona = decodePersona(deps.persona);
+			const { persona } = decodePersona(deps.persona);
 			return { persona };
 		}
 		return { persona: null };

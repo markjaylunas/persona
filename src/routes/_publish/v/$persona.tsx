@@ -3,24 +3,20 @@ import { AlertTriangle } from "lucide-react";
 import PublishHeader from "@/components/layout/publish-header";
 import PersonaDetails from "@/components/persona/detail";
 import { decodePersona } from "@/lib/compression";
-import {
-	personaRouteValidator,
-	publishRouteSearchParamValidator,
-} from "@/lib/route-validators";
+import { personaRouteValidator } from "@/lib/route-validators";
 
 export const Route = createFileRoute("/_publish/v/$persona")({
 	component: RouteComponent,
-	validateSearch: publishRouteSearchParamValidator,
+	validateSearch: undefined,
 	params: personaRouteValidator,
 	loader: ({ params }) => {
-		const persona = decodePersona(params.persona);
-		return { persona };
+		const { persona, isFromCreation } = decodePersona(params.persona);
+		return { persona, isFromCreation };
 	},
 });
 
 function RouteComponent() {
-	const { persona } = Route.useLoaderData();
-	const { isFromCreation } = Route.useSearch();
+	const { persona, isFromCreation } = Route.useLoaderData();
 	return (
 		<main className="max-w-7xl mx-auto">
 			<PublishHeader />

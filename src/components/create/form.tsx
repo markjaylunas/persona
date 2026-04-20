@@ -37,7 +37,7 @@ export default function CreatePersonaForm({
 
 	const handleSubmit = (values: Persona) => {
 		// encode persona
-		const encoded = encodePersona(values);
+		const encoded = encodePersona(values, true);
 
 		// update url for form state persistence via search params
 		const url = new URL(window.location.href);
@@ -48,7 +48,6 @@ export default function CreatePersonaForm({
 		navigate({
 			to: "/v/$persona",
 			params: { persona: encoded },
-			search: { isFromCreation: true },
 		});
 	};
 

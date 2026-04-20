@@ -126,6 +126,7 @@ export const minifiedPersonaSchema = z.object({
 			}),
 		)
 		.optional(),
+	_: z.boolean().optional(),
 });
 
 export type MinifiedPersona = z.infer<typeof minifiedPersonaSchema>;

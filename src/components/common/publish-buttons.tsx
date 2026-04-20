@@ -1,14 +1,16 @@
-import { useNavigate, useParams, useSearch } from "@tanstack/react-router";
+import { useNavigate, useParams } from "@tanstack/react-router";
 import { Copy, Edit, Share } from "lucide-react";
 import { toast } from "sonner";
+import { decodePersona, encodePersona } from "@/lib/compression";
 import { Button } from "../ui/button";
 import { ButtonGroup } from "../ui/button-group";
 
 export default function PublishButtons() {
 	const navigate = useNavigate();
-	const { isFromCreation } = useSearch({ from: "/_publish/v/$persona" });
 	const { persona } = useParams({ from: "/_publish/v/$persona" });
-	const linkToPersona = `${window.location.origin}/v/${persona}`;
+	const { isFromCreation, persona: decodedPersona } = decodePersona(persona);
+	const publishablePersona = encodePersona(decodedPersona, false);
+	const linkToPersona = `${window.location.origin}/v/${publishablePersona}`;
 
 	const handleCopy = () => {
 		navigator.clipboard.writeText(linkToPersona);

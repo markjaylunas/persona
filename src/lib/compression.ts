@@ -6,7 +6,7 @@ import {
 	type Persona,
 } from "@/components/create/validator";
 
-const mapPersonaToMinified = (data: Persona) => {
+const mapPersonaToMinified = (data: Persona, isFromCreation?: boolean) => {
 	const s: Record<string, string> = {};
 
 	// Only include social keys if they have a value
@@ -43,6 +43,7 @@ const mapPersonaToMinified = (data: Persona) => {
 				u: link.url,
 			})),
 		}),
+		...(isFromCreation && { _: true }),
 	};
 };
 
@@ -71,13 +72,18 @@ const mapMinifiedToPersona = (data: MinifiedPersona): Persona => {
 	};
 };
 
-export const encodePersona = (data: Persona): string => {
-	const minified = mapPersonaToMinified(data);
+export const encodePersona = (
+	data: Persona,
+	isFromCreation?: boolean,
+): string => {
+	const minified = mapPersonaToMinified(data, isFromCreation);
 	// JSON.stringify will now skip all undefined/optional fields we omitted
 	return LZString.compressToEncodedURIComponent(JSON.stringify(minified));
 };
 
-export const decodePersona = (data: string): Persona => {
+export const decodePersona = (
+	data: string,
+): { persona: Persona; isFromCreation: boolean } => {
 	const decompressed = LZString.decompressFromEncodedURIComponent(data);
 	if (!decompressed) throw new Error("Failed to decompress Persona data");
 
@@ -86,5 +92,8 @@ export const decodePersona = (data: string): Persona => {
 	// Validate the raw JSON against the minified schema
 	const parsed = minifiedPersonaSchema.parse(json);
 
-	return mapMinifiedToPersona(parsed);
+	return {
+		persona: mapMinifiedToPersona(parsed),
+		isFromCreation: parsed._ ?? false,
+	};
 };
