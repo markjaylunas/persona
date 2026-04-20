@@ -90,7 +90,7 @@ function App() {
 						<FeatureCard
 							icon={<Globe className="size-10 text-cyan-500" />}
 							title="One Link for All"
-							description="Connect your Instagram, TikTok, YouTube, GitHub, and more. One URL to rule them all."
+							description="Connect your Instagram, YouTube, GitHub, and more. One URL to rule them all."
 						/>
 						<FeatureCard
 							icon={<Palette className="size-10 text-violet-500" />}
@@ -126,10 +126,10 @@ function App() {
 				<div className="max-w-7xl mx-auto px-4">
 					<div className="bg-linear-to-br from-violet-600 via-fuchsia-600 to-rose-600 rounded-[4rem] px-8 py-20 text-center text-white space-y-10 relative overflow-hidden shadow-[0_20px_50px_rgba(139,92,246,0.3)]">
 						<div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff12_1px,transparent_1px),linear-gradient(to_bottom,#ffffff12_1px,transparent_1px)] bg-size-[40px_40px] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
-						<h2 className="text-5xl md:text-7xl font-black tracking-tight relative z-10 leading-tight">
+						<h2 className="text-3xl sm:text-5xl md:text-7xl font-black tracking-tight relative z-10 leading-tight">
 							Ready to define your Persona?
 						</h2>
-						<p className="text-white/80 text-2xl max-w-2xl mx-auto relative z-10 leading-relaxed font-medium">
+						<p className="text-white/80 text-lg sm:text-2xl max-w-2xl mx-auto relative z-10 leading-relaxed font-medium">
 							Join thousands of creators who are already using Persona to build
 							their digital home.
 						</p>
@@ -140,7 +140,7 @@ function App() {
 									size: "lg",
 									variant: "secondary",
 									className:
-										"rounded-full px-12 text-black bg-white hover:bg-white/90 text-xl font-bold py-8 transition-all hover:scale-105",
+										"rounded-full px-12 text-black bg-white hover:bg-white/90 sm:text-xl font-bold py-4 sm:py-8 transition-all hover:scale-105 text-wrap",
 								})}
 							>
 								Build Your Free Page Now
@@ -163,13 +163,15 @@ function FeatureCard({
 	description: string;
 }) {
 	return (
-		<Card className="border-none bg-card/40 backdrop-blur-md shadow-2xl hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] hover:-translate-y-2 transition-all duration-500 group rounded-[2.5rem]">
+		<Card className="bg-secondary">
 			<CardContent className="pt-12 pb-14 px-10 flex flex-col items-center text-center space-y-6">
 				<div className="p-5 rounded-[2rem] bg-white dark:bg-muted/30 shadow-inner group-hover:scale-110 transition-transform duration-500">
 					{icon}
 				</div>
-				<h3 className="text-2xl font-bold tracking-tight">{title}</h3>
-				<p className="text-muted-foreground leading-relaxed text-lg font-medium">
+				<h3 className="text-xl sm:text-2xl font-bold tracking-tight">
+					{title}
+				</h3>
+				<p className="text-muted-foreground leading-relaxed text-sm sm:text-lg font-medium">
 					{description}
 				</p>
 			</CardContent>
