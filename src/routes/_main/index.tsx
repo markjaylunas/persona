@@ -26,7 +26,7 @@ function App() {
 						<div className="text-center lg:text-left space-y-8 max-w-xl mx-auto lg:mx-0">
 							<div className="inline-flex items-center px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold tracking-wide uppercase">
 								<Zap className="size-4 mr-2" />
-								<span>Beacons alternative for free</span>
+								<span>Link in bio for free</span>
 							</div>
 							<h1 className="text-5xl md:text-[80px] font-black tracking-tight text-balance leading-[0.95]">
 								Your Identity,{" "}
