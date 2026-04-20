@@ -19,14 +19,14 @@ export default function PersonaDetails({ persona }: { persona: Persona }) {
 				href={href}
 				target="_blank"
 				rel="noopener noreferrer"
-				className="group/social hover:opacity-80 transition-opacity duration-200 ease-in-out my-auto px-2"
+				className="group/social hover:opacity-80 transition-opacity duration-200 ease-in-out p-4"
 			>
 				{key === "email" ? (
-					<Mail className=" size-6 dark:text-background group-hover/social:scale-105 transition-transform duration-200 ease-in-out" />
+					<Mail className=" size-8 dark:text-background group-hover/social:scale-105 transition-transform duration-200 ease-in-out" />
 				) : (
 					<Icon
 						icon={key as IconLibrary}
-						className="w-8 h-auto group-hover/social:scale-105 transition-transform duration-200 ease-in-out"
+						className="w-10 h-auto group-hover/social:scale-105 transition-transform duration-200 ease-in-out"
 					/>
 				)}
 				<span className="sr-only">{key}</span>
@@ -61,14 +61,16 @@ export default function PersonaDetails({ persona }: { persona: Persona }) {
 				<div className="h-4" />
 
 				{hasSocials && (
-					<Item className=" bg-muted dark:bg-foreground">
-						<ItemContent className="flex justify-center gap-6 items-center flex-row flex-wrap">
-							{Object.entries(persona.socials).map(([key, url]) => (
-								<ItemMedia key={key}>{renderSocialIcon(key, url)}</ItemMedia>
-							))}
-						</ItemContent>
-						<ItemTitle className="sr-only">Socials</ItemTitle>
-					</Item>
+					<section className="bg-muted dark:bg-foreground rounded-xl">
+						<span className="sr-only">Socials</span>
+						<ul className="flex flex-row flex-wrap justify-center items-center gap-6 px-6 py-1">
+							{Object.entries(persona.socials)
+								.filter(([_, url]) => !!url)
+								.map(([key, url]) => (
+									<li key={key}>{renderSocialIcon(key, url)}</li>
+								))}
+						</ul>
+					</section>
 				)}
 
 				<div className="h-6" />
