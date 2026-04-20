@@ -8,6 +8,7 @@ import {
 	Shield,
 	Zap,
 } from "lucide-react";
+import MobileDisplay from "@/components/common/mobile-display";
 import { mockPersonaValues } from "@/components/create/validator";
 import PersonaDetails from "@/components/persona/detail";
 import { buttonVariants } from "@/components/ui/button";
@@ -62,10 +63,10 @@ function App() {
 
 						<div className="relative">
 							<div className="absolute -inset-10 bg-radial from-violet-500/30 to-cyan-500/30 blur-[100px] opacity-60 rounded-full" />
-							<div className="relative group perspective-1000">
-								<div className="relative rounded-[2.5rem] shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] border border-white/10 w-full max-w-137.5 mx-auto lg:ml-auto transition-transform duration-500 group-hover:rotate-y-2 group-hover:scale-[1.02]">
+							<div className="relative">
+								<MobileDisplay>
 									<PersonaDetails persona={mockPersonaValues} />
-								</div>
+								</MobileDisplay>
 							</div>
 						</div>
 					</div>
