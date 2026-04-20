@@ -23,22 +23,22 @@ function App() {
 				<div className="max-w-7xl mx-auto px-4 relative z-10">
 					<div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 						<div className="text-center lg:text-left space-y-8 max-w-xl mx-auto lg:mx-0">
-							<div className="inline-flex items-center px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold tracking-wide uppercase duration-1000 animate-in fade-in slide-in-from-bottom-4">
+							<div className="inline-flex items-center px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-semibold tracking-wide uppercase">
 								<Zap className="size-4 mr-2" />
 								<span>Beacons alternative for free</span>
 							</div>
-							<h1 className="text-5xl md:text-[80px] font-black tracking-tight text-balance leading-[0.95] duration-1000 delay-100 animate-in fade-in slide-in-from-bottom-6">
+							<h1 className="text-5xl md:text-[80px] font-black tracking-tight text-balance leading-[0.95]">
 								Your Identity,{" "}
 								<span className="text-transparent bg-clip-text bg-linear-to-r from-violet-500 via-fuchsia-500 to-cyan-500">
 									Unified.
 								</span>
 							</h1>
-							<p className="text-xl text-muted-foreground duration-1000 delay-200 animate-in fade-in slide-in-from-bottom-8">
+							<p className="text-xl text-muted-foreground">
 								Create a stunning, free landing page for all your links in
 								seconds. Join creators who choose Persona for a clean, premium
 								presence.
 							</p>
-							<div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start duration-1000 delay-300 animate-in fade-in slide-in-from-bottom-10">
+							<div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
 								<Link
 									to="/create"
 									className={buttonVariants({
@@ -60,7 +60,7 @@ function App() {
 							</div>
 						</div>
 
-						<div className="relative duration-1000 delay-500 animate-in fade-in slide-in-from-right-12">
+						<div className="relative">
 							<div className="absolute -inset-10 bg-radial from-violet-500/30 to-cyan-500/30 blur-[100px] opacity-60 rounded-full" />
 							<div className="relative group perspective-1000">
 								<div className="relative rounded-[2.5rem] shadow-[0_0_50px_-12px_rgba(0,0,0,0.5)] border border-white/10 w-full max-w-137.5 mx-auto lg:ml-auto transition-transform duration-500 group-hover:rotate-y-2 group-hover:scale-[1.02]">
