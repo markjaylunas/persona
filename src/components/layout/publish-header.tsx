@@ -1,4 +1,4 @@
-import ShareButton from "../common/share-button";
+import PublishButtons from "../common/publish-buttons";
 import ThemeToggle from "./theme-toggle";
 
 export default function PublishHeader() {
@@ -7,7 +7,7 @@ export default function PublishHeader() {
 			<div />
 			<div className="flex gap-2">
 				<ThemeToggle />
-				<ShareButton />
+				<PublishButtons />
 			</div>
 		</header>
 	);

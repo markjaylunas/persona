@@ -46,8 +46,9 @@ export default function CreatePersonaForm({
 
 		// navigate to preview
 		navigate({
-			to: "/preview/$persona",
+			to: "/v/$persona",
 			params: { persona: encoded },
+			search: { isFromCreation: true },
 		});
 	};
 

@@ -9,3 +9,8 @@ export const personaRouteValidator = z.object({
 export const createRouteSearchParamValidator = z.object({
 	persona: z.string().optional(),
 });
+
+// /v/$persona?isFromCreation=...
+export const publishRouteSearchParamValidator = z.object({
+	isFromCreation: z.boolean().optional(),
+});
