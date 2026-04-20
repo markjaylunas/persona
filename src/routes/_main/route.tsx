@@ -15,9 +15,14 @@ function RouteComponent() {
 			<Header>
 				<div className="flex items-center gap-2">
 					<ThemeToggle />
-					<Link to="/create" className={buttonVariants()}>
+					<Link
+						to="/create"
+						className={buttonVariants({
+							size: "lg",
+						})}
+					>
 						<Plus />
-						Create
+						<span className="sr-only sm:not-sr-only">Create</span>
 					</Link>
 				</div>
 			</Header>
