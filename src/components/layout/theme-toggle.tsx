@@ -20,7 +20,7 @@ export default function ModeToggle({
 	};
 
 	return (
-		<Button variant="outline" size="icon-lg" {...props} onClick={toggleTheme}>
+		<Button variant="secondary" size="icon-lg" {...props} onClick={toggleTheme}>
 			{/* SUN: Show only on Light */}
 			<Sun
 				className={cn(

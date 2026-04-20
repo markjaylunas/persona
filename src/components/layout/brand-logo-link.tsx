@@ -13,7 +13,7 @@ export default function BrandLogoLink() {
 					height={40}
 				/>
 			</Link>
-			<span className="text-2xl font-medium tracking-tighter">
+			<span className="text-background dark:text-foreground text-2xl font-medium tracking-tighter">
 				<Link
 					to="/"
 					className="hover:opacity-80 transition-opacity duration-200 ease-in-out"
