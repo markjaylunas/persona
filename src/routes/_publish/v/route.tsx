@@ -1,4 +1,5 @@
-import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
+import BrandLogoLink from "@/components/layout/brand-logo-link";
 
 export const Route = createFileRoute("/_publish/v")({
 	component: RouteComponent,
@@ -8,9 +9,11 @@ function RouteComponent() {
 	return (
 		<>
 			<Outlet />
-			<footer className="flex justify-center items-center gap-2">
-				<p>Powered by</p>
-				<Link to="/">Persona</Link>
+
+			<div className="h-8" />
+
+			<footer className="flex justify-center items-center py-10">
+				<BrandLogoLink />
 			</footer>
 		</>
 	);
