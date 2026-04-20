@@ -1,39 +1,19 @@
 import { Link } from "@tanstack/react-router";
-import makjeLogo from "@/assets/makje.svg";
+import BrandLogoLink from "./brand-logo-link";
 
 export default function Footer() {
 	const currentYear = new Date().getFullYear();
 
 	return (
 		<>
-			<div className="border border-muted" />
+			<div className="border border-muted dark:border-muted-foreground" />
 			<footer className="relative w-full py-12 max-w-5xl mx-auto px-6">
 				<div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-12 items-start mx-auto">
 					{/* Brand Section */}
 					<div className="col-span-2 sm:col-span-1 flex flex-col gap-2">
-						<div className="flex items-center gap-2">
-							<div className="flex items-center gap-2 justify-self-center">
-								<Link to="/">
-									<img
-										src={makjeLogo}
-										alt="Persona by Makje Logo"
-										className="size-10"
-										width={40}
-										height={40}
-									/>
-								</Link>
-								<span className="text-foreground dark:text-background text-2xl font-medium tracking-tighter">
-									<Link
-										to="/"
-										className="hover:opacity-80 transition-opacity duration-200 ease-in-out"
-									>
-										Persona
-									</Link>
-								</span>
-							</div>
-						</div>
+						<BrandLogoLink />
 
-						<p className="text-sm text-foreground dark:text-background mt-4 max-w-xs leading-relaxed">
+						<p className="text-sm text-foreground mt-4 max-w-xs leading-relaxed">
 							A high-performance identity platform built with passion for
 							creators, leveraging modern serverless infrastructure.
 						</p>

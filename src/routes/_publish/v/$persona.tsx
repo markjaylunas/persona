@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import PublishHeader from "@/components/layout/publish-header";
 import PersonaDetails from "@/components/persona/detail";
 import { decodePersona } from "@/lib/compression";
 import { personaRouteValidator } from "@/lib/route-validators";
@@ -14,5 +15,10 @@ export const Route = createFileRoute("/_publish/v/$persona")({
 
 function RouteComponent() {
 	const { persona } = Route.useLoaderData();
-	return <PersonaDetails persona={persona} />;
+	return (
+		<main className="max-w-7xl mx-auto">
+			<PublishHeader />
+			<PersonaDetails persona={persona} />
+		</main>
+	);
 }

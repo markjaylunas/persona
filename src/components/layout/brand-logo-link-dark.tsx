@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import makjeLogo from "@/assets/makje.svg";
 import makjeLogoDark from "@/assets/makje-dark.svg";
 
 export default function BrandLogoLink() {
@@ -9,19 +8,12 @@ export default function BrandLogoLink() {
 				<img
 					src={makjeLogoDark}
 					alt="Persona by Makje Logo"
-					className="hidden dark:block size-10"
-					width={40}
-					height={40}
-				/>
-				<img
-					src={makjeLogo}
-					alt="Persona by Makje Logo"
-					className="dark:hidden size-10"
+					className="size-10"
 					width={40}
 					height={40}
 				/>
 			</Link>
-			<span className="text-foreground text-2xl font-medium tracking-tighter">
+			<span className="text-background dark:text-foreground text-2xl font-medium tracking-tighter">
 				<Link
 					to="/"
 					className="hover:opacity-80 transition-opacity duration-200 ease-in-out"

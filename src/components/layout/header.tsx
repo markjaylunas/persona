@@ -1,4 +1,4 @@
-import BrandLogoLink from "./brand-logo-link";
+import BrandLogoLink from "./brand-logo-link-dark";
 
 export default function Header({ children }: { children: React.ReactNode }) {
 	return (
