@@ -18,7 +18,9 @@ function RouteComponent() {
 					<DonateButton />
 				</div>
 			</Header>
-			<Outlet />
+			<div className="max-w-7xl mx-auto py-12">
+				<Outlet />
+			</div>
 			<Footer />
 			<Toaster />
 		</>
