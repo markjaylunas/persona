@@ -67,12 +67,12 @@ export default function Footer() {
 								</a>
 							</li>
 							<li>
-								<a
-									href="https://makje.com/privacy"
+								<Link
+									to="/privacy"
 									className="text-sm text-muted-foreground hover:opacity-60 transition-opacity"
 								>
 									Privacy Policy
-								</a>
+								</Link>
 							</li>
 						</ul>
 					</nav>

@@ -13,6 +13,7 @@ import { Route as MainRouteRouteImport } from './routes/_main/route'
 import { Route as CreationRouteRouteImport } from './routes/_creation/route'
 import { Route as MainIndexRouteImport } from './routes/_main/index'
 import { Route as ApiUploadImageRouteImport } from './routes/api/upload-image'
+import { Route as MainPrivacyRouteImport } from './routes/_main/privacy'
 import { Route as PublishVRouteRouteImport } from './routes/_publish/v/route'
 import { Route as CreationCreateIndexRouteImport } from './routes/_creation/create/index'
 import { Route as PublishVPersonaRouteImport } from './routes/_publish/v/$persona'
@@ -35,6 +36,11 @@ const ApiUploadImageRoute = ApiUploadImageRouteImport.update({
   path: '/api/upload-image',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MainPrivacyRoute = MainPrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => MainRouteRoute,
+} as any)
 const PublishVRouteRoute = PublishVRouteRouteImport.update({
   id: '/_publish/v',
   path: '/v',
@@ -54,6 +60,7 @@ const PublishVPersonaRoute = PublishVPersonaRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof MainIndexRoute
   '/v': typeof PublishVRouteRouteWithChildren
+  '/privacy': typeof MainPrivacyRoute
   '/api/upload-image': typeof ApiUploadImageRoute
   '/v/$persona': typeof PublishVPersonaRoute
   '/create/': typeof CreationCreateIndexRoute
@@ -61,6 +68,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof MainIndexRoute
   '/v': typeof PublishVRouteRouteWithChildren
+  '/privacy': typeof MainPrivacyRoute
   '/api/upload-image': typeof ApiUploadImageRoute
   '/v/$persona': typeof PublishVPersonaRoute
   '/create': typeof CreationCreateIndexRoute
@@ -70,6 +78,7 @@ export interface FileRoutesById {
   '/_creation': typeof CreationRouteRouteWithChildren
   '/_main': typeof MainRouteRouteWithChildren
   '/_publish/v': typeof PublishVRouteRouteWithChildren
+  '/_main/privacy': typeof MainPrivacyRoute
   '/api/upload-image': typeof ApiUploadImageRoute
   '/_main/': typeof MainIndexRoute
   '/_publish/v/$persona': typeof PublishVPersonaRoute
@@ -77,14 +86,21 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/v' | '/api/upload-image' | '/v/$persona' | '/create/'
+  fullPaths:
+    | '/'
+    | '/v'
+    | '/privacy'
+    | '/api/upload-image'
+    | '/v/$persona'
+    | '/create/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/v' | '/api/upload-image' | '/v/$persona' | '/create'
+  to: '/' | '/v' | '/privacy' | '/api/upload-image' | '/v/$persona' | '/create'
   id:
     | '__root__'
     | '/_creation'
     | '/_main'
     | '/_publish/v'
+    | '/_main/privacy'
     | '/api/upload-image'
     | '/_main/'
     | '/_publish/v/$persona'
@@ -128,6 +144,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiUploadImageRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_main/privacy': {
+      id: '/_main/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof MainPrivacyRouteImport
+      parentRoute: typeof MainRouteRoute
+    }
     '/_publish/v': {
       id: '/_publish/v'
       path: '/v'
@@ -165,10 +188,12 @@ const CreationRouteRouteWithChildren = CreationRouteRoute._addFileChildren(
 )
 
 interface MainRouteRouteChildren {
+  MainPrivacyRoute: typeof MainPrivacyRoute
   MainIndexRoute: typeof MainIndexRoute
 }
 
 const MainRouteRouteChildren: MainRouteRouteChildren = {
+  MainPrivacyRoute: MainPrivacyRoute,
   MainIndexRoute: MainIndexRoute,
 }
 

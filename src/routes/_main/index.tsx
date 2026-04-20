@@ -4,7 +4,6 @@ import {
 	CheckCircle2,
 	Globe,
 	Layout,
-	Palette,
 	Shield,
 	Zap,
 } from "lucide-react";
@@ -93,14 +92,14 @@ function App() {
 							description="Connect your Instagram, YouTube, GitHub, and more. One URL to rule them all."
 						/>
 						<FeatureCard
-							icon={<Palette className="size-10 text-violet-500" />}
-							title="Premium Aesthetics"
-							description="Modern, dark-mode first designs that look stunning on any screen size or device."
+							icon={<Zap className="size-10 text-violet-500" />}
+							title="Fast & Modern"
+							description="Your Persona page loads instantly on any device — built on modern serverless infrastructure for blazing fast performance."
 						/>
 						<FeatureCard
 							icon={<Layout className="size-10 text-fuchsia-500" />}
 							title="Easy Builder"
-							description="Simple drag-and-drop experience. No coding required. Launch your page in under 60 seconds."
+							description="Fill out a simple form, hit share, and your Persona page is ready — just type and go."
 						/>
 						<FeatureCard
 							icon={<CheckCircle2 className="size-10 text-emerald-500" />}
