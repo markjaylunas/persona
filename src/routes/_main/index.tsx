@@ -9,7 +9,6 @@ import {
 	Zap,
 } from "lucide-react";
 import { mockPersonaValues } from "@/components/create/validator";
-import Footer from "@/components/layout/footer";
 import PersonaDetails from "@/components/persona/detail";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -149,8 +148,6 @@ function App() {
 					</div>
 				</div>
 			</section>
-
-			<Footer />
 		</div>
 	);
 }
