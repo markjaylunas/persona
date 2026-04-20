@@ -3,7 +3,7 @@ import PersonaDetails from "@/components/persona/detail";
 import { decodePersona } from "@/lib/compression";
 import { personaRouteValidator } from "@/lib/route-validators";
 
-export const Route = createFileRoute("/v/$persona")({
+export const Route = createFileRoute("/_publish/v/$persona")({
 	component: RouteComponent,
 	params: personaRouteValidator,
 	loader: ({ params }) => {

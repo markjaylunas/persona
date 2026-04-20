@@ -4,7 +4,7 @@ import CreateForm from "@/components/create/form";
 import { decodePersona } from "@/lib/compression";
 import { createRouteSearchParamValidator } from "@/lib/route-validators";
 
-export const Route = createFileRoute("/create/")({
+export const Route = createFileRoute("/_creation/create/")({
 	head: () => ({
 		meta: [
 			{ title: "Create Persona | Persona | Makje" },

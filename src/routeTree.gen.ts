@@ -9,92 +9,85 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as VRouteRouteImport } from './routes/v/route'
-import { Route as PreviewRouteRouteImport } from './routes/preview/route'
-import { Route as CreateRouteRouteImport } from './routes/create/route'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as CreateIndexRouteImport } from './routes/create/index'
-import { Route as VPersonaRouteImport } from './routes/v/$persona'
-import { Route as PreviewPersonaRouteImport } from './routes/preview/$persona'
+import { Route as MainRouteRouteImport } from './routes/_main/route'
+import { Route as CreationRouteRouteImport } from './routes/_creation/route'
+import { Route as MainIndexRouteImport } from './routes/_main/index'
 import { Route as ApiUploadImageRouteImport } from './routes/api/upload-image'
+import { Route as PublishVRouteRouteImport } from './routes/_publish/v/route'
+import { Route as CreationCreateIndexRouteImport } from './routes/_creation/create/index'
+import { Route as PublishVPersonaRouteImport } from './routes/_publish/v/$persona'
+import { Route as CreationPreviewPersonaRouteImport } from './routes/_creation/preview/$persona'
 
-const VRouteRoute = VRouteRouteImport.update({
-  id: '/v',
-  path: '/v',
+const MainRouteRoute = MainRouteRouteImport.update({
+  id: '/_main',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PreviewRouteRoute = PreviewRouteRouteImport.update({
-  id: '/preview',
-  path: '/preview',
+const CreationRouteRoute = CreationRouteRouteImport.update({
+  id: '/_creation',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CreateRouteRoute = CreateRouteRouteImport.update({
-  id: '/create',
-  path: '/create',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
+const MainIndexRoute = MainIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CreateIndexRoute = CreateIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => CreateRouteRoute,
-} as any)
-const VPersonaRoute = VPersonaRouteImport.update({
-  id: '/$persona',
-  path: '/$persona',
-  getParentRoute: () => VRouteRoute,
-} as any)
-const PreviewPersonaRoute = PreviewPersonaRouteImport.update({
-  id: '/$persona',
-  path: '/$persona',
-  getParentRoute: () => PreviewRouteRoute,
+  getParentRoute: () => MainRouteRoute,
 } as any)
 const ApiUploadImageRoute = ApiUploadImageRouteImport.update({
   id: '/api/upload-image',
   path: '/api/upload-image',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PublishVRouteRoute = PublishVRouteRouteImport.update({
+  id: '/_publish/v',
+  path: '/v',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreationCreateIndexRoute = CreationCreateIndexRouteImport.update({
+  id: '/create/',
+  path: '/create/',
+  getParentRoute: () => CreationRouteRoute,
+} as any)
+const PublishVPersonaRoute = PublishVPersonaRouteImport.update({
+  id: '/$persona',
+  path: '/$persona',
+  getParentRoute: () => PublishVRouteRoute,
+} as any)
+const CreationPreviewPersonaRoute = CreationPreviewPersonaRouteImport.update({
+  id: '/preview/$persona',
+  path: '/preview/$persona',
+  getParentRoute: () => CreationRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/create': typeof CreateRouteRouteWithChildren
-  '/preview': typeof PreviewRouteRouteWithChildren
-  '/v': typeof VRouteRouteWithChildren
+  '/': typeof MainIndexRoute
+  '/v': typeof PublishVRouteRouteWithChildren
   '/api/upload-image': typeof ApiUploadImageRoute
-  '/preview/$persona': typeof PreviewPersonaRoute
-  '/v/$persona': typeof VPersonaRoute
-  '/create/': typeof CreateIndexRoute
+  '/preview/$persona': typeof CreationPreviewPersonaRoute
+  '/v/$persona': typeof PublishVPersonaRoute
+  '/create/': typeof CreationCreateIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/preview': typeof PreviewRouteRouteWithChildren
-  '/v': typeof VRouteRouteWithChildren
+  '/': typeof MainIndexRoute
+  '/v': typeof PublishVRouteRouteWithChildren
   '/api/upload-image': typeof ApiUploadImageRoute
-  '/preview/$persona': typeof PreviewPersonaRoute
-  '/v/$persona': typeof VPersonaRoute
-  '/create': typeof CreateIndexRoute
+  '/preview/$persona': typeof CreationPreviewPersonaRoute
+  '/v/$persona': typeof PublishVPersonaRoute
+  '/create': typeof CreationCreateIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/create': typeof CreateRouteRouteWithChildren
-  '/preview': typeof PreviewRouteRouteWithChildren
-  '/v': typeof VRouteRouteWithChildren
+  '/_creation': typeof CreationRouteRouteWithChildren
+  '/_main': typeof MainRouteRouteWithChildren
+  '/_publish/v': typeof PublishVRouteRouteWithChildren
   '/api/upload-image': typeof ApiUploadImageRoute
-  '/preview/$persona': typeof PreviewPersonaRoute
-  '/v/$persona': typeof VPersonaRoute
-  '/create/': typeof CreateIndexRoute
+  '/_main/': typeof MainIndexRoute
+  '/_creation/preview/$persona': typeof CreationPreviewPersonaRoute
+  '/_publish/v/$persona': typeof PublishVPersonaRoute
+  '/_creation/create/': typeof CreationCreateIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/create'
-    | '/preview'
     | '/v'
     | '/api/upload-image'
     | '/preview/$persona'
@@ -103,7 +96,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/preview'
     | '/v'
     | '/api/upload-image'
     | '/preview/$persona'
@@ -111,74 +103,45 @@ export interface FileRouteTypes {
     | '/create'
   id:
     | '__root__'
-    | '/'
-    | '/create'
-    | '/preview'
-    | '/v'
+    | '/_creation'
+    | '/_main'
+    | '/_publish/v'
     | '/api/upload-image'
-    | '/preview/$persona'
-    | '/v/$persona'
-    | '/create/'
+    | '/_main/'
+    | '/_creation/preview/$persona'
+    | '/_publish/v/$persona'
+    | '/_creation/create/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  CreateRouteRoute: typeof CreateRouteRouteWithChildren
-  PreviewRouteRoute: typeof PreviewRouteRouteWithChildren
-  VRouteRoute: typeof VRouteRouteWithChildren
+  CreationRouteRoute: typeof CreationRouteRouteWithChildren
+  MainRouteRoute: typeof MainRouteRouteWithChildren
+  PublishVRouteRoute: typeof PublishVRouteRouteWithChildren
   ApiUploadImageRoute: typeof ApiUploadImageRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/v': {
-      id: '/v'
-      path: '/v'
-      fullPath: '/v'
-      preLoaderRoute: typeof VRouteRouteImport
+    '/_main': {
+      id: '/_main'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof MainRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/preview': {
-      id: '/preview'
-      path: '/preview'
-      fullPath: '/preview'
-      preLoaderRoute: typeof PreviewRouteRouteImport
+    '/_creation': {
+      id: '/_creation'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof CreationRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/create': {
-      id: '/create'
-      path: '/create'
-      fullPath: '/create'
-      preLoaderRoute: typeof CreateRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
+    '/_main/': {
+      id: '/_main/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/create/': {
-      id: '/create/'
-      path: '/'
-      fullPath: '/create/'
-      preLoaderRoute: typeof CreateIndexRouteImport
-      parentRoute: typeof CreateRouteRoute
-    }
-    '/v/$persona': {
-      id: '/v/$persona'
-      path: '/$persona'
-      fullPath: '/v/$persona'
-      preLoaderRoute: typeof VPersonaRouteImport
-      parentRoute: typeof VRouteRoute
-    }
-    '/preview/$persona': {
-      id: '/preview/$persona'
-      path: '/$persona'
-      fullPath: '/preview/$persona'
-      preLoaderRoute: typeof PreviewPersonaRouteImport
-      parentRoute: typeof PreviewRouteRoute
+      preLoaderRoute: typeof MainIndexRouteImport
+      parentRoute: typeof MainRouteRoute
     }
     '/api/upload-image': {
       id: '/api/upload-image'
@@ -187,49 +150,79 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiUploadImageRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_publish/v': {
+      id: '/_publish/v'
+      path: '/v'
+      fullPath: '/v'
+      preLoaderRoute: typeof PublishVRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_creation/create/': {
+      id: '/_creation/create/'
+      path: '/create'
+      fullPath: '/create/'
+      preLoaderRoute: typeof CreationCreateIndexRouteImport
+      parentRoute: typeof CreationRouteRoute
+    }
+    '/_publish/v/$persona': {
+      id: '/_publish/v/$persona'
+      path: '/$persona'
+      fullPath: '/v/$persona'
+      preLoaderRoute: typeof PublishVPersonaRouteImport
+      parentRoute: typeof PublishVRouteRoute
+    }
+    '/_creation/preview/$persona': {
+      id: '/_creation/preview/$persona'
+      path: '/preview/$persona'
+      fullPath: '/preview/$persona'
+      preLoaderRoute: typeof CreationPreviewPersonaRouteImport
+      parentRoute: typeof CreationRouteRoute
+    }
   }
 }
 
-interface CreateRouteRouteChildren {
-  CreateIndexRoute: typeof CreateIndexRoute
+interface CreationRouteRouteChildren {
+  CreationPreviewPersonaRoute: typeof CreationPreviewPersonaRoute
+  CreationCreateIndexRoute: typeof CreationCreateIndexRoute
 }
 
-const CreateRouteRouteChildren: CreateRouteRouteChildren = {
-  CreateIndexRoute: CreateIndexRoute,
+const CreationRouteRouteChildren: CreationRouteRouteChildren = {
+  CreationPreviewPersonaRoute: CreationPreviewPersonaRoute,
+  CreationCreateIndexRoute: CreationCreateIndexRoute,
 }
 
-const CreateRouteRouteWithChildren = CreateRouteRoute._addFileChildren(
-  CreateRouteRouteChildren,
+const CreationRouteRouteWithChildren = CreationRouteRoute._addFileChildren(
+  CreationRouteRouteChildren,
 )
 
-interface PreviewRouteRouteChildren {
-  PreviewPersonaRoute: typeof PreviewPersonaRoute
+interface MainRouteRouteChildren {
+  MainIndexRoute: typeof MainIndexRoute
 }
 
-const PreviewRouteRouteChildren: PreviewRouteRouteChildren = {
-  PreviewPersonaRoute: PreviewPersonaRoute,
+const MainRouteRouteChildren: MainRouteRouteChildren = {
+  MainIndexRoute: MainIndexRoute,
 }
 
-const PreviewRouteRouteWithChildren = PreviewRouteRoute._addFileChildren(
-  PreviewRouteRouteChildren,
+const MainRouteRouteWithChildren = MainRouteRoute._addFileChildren(
+  MainRouteRouteChildren,
 )
 
-interface VRouteRouteChildren {
-  VPersonaRoute: typeof VPersonaRoute
+interface PublishVRouteRouteChildren {
+  PublishVPersonaRoute: typeof PublishVPersonaRoute
 }
 
-const VRouteRouteChildren: VRouteRouteChildren = {
-  VPersonaRoute: VPersonaRoute,
+const PublishVRouteRouteChildren: PublishVRouteRouteChildren = {
+  PublishVPersonaRoute: PublishVPersonaRoute,
 }
 
-const VRouteRouteWithChildren =
-  VRouteRoute._addFileChildren(VRouteRouteChildren)
+const PublishVRouteRouteWithChildren = PublishVRouteRoute._addFileChildren(
+  PublishVRouteRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  CreateRouteRoute: CreateRouteRouteWithChildren,
-  PreviewRouteRoute: PreviewRouteRouteWithChildren,
-  VRouteRoute: VRouteRouteWithChildren,
+  CreationRouteRoute: CreationRouteRouteWithChildren,
+  MainRouteRoute: MainRouteRouteWithChildren,
+  PublishVRouteRoute: PublishVRouteRouteWithChildren,
   ApiUploadImageRoute: ApiUploadImageRoute,
 }
 export const routeTree = rootRouteImport

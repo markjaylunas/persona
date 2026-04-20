@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 import ThemeToggle from "@/components/layout/theme-toggle";
 import { buttonVariants } from "@/components/ui/button";
 
-export const Route = createFileRoute("/")({ component: App });
+export const Route = createFileRoute("/_main/")({ component: App });
 
 function App() {
 	return (
