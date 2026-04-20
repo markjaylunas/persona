@@ -70,7 +70,7 @@ function RouteComponent() {
 				</h1>
 
 				{/* Info Section */}
-				<section className="mt-8 p-5 rounded-sm bg-ink-900 border border-white/10">
+				<section className="mt-8 p-5 rounded-sm bg-ink-900 border border-black/10 dark:border-white/10">
 					<div className="flex flex-col md:flex-row gap-6">
 						<div className="flex-1 space-y-3">
 							<div className="flex items-center gap-2 text-wasabi-500">
@@ -86,7 +86,7 @@ function RouteComponent() {
 							</p>
 						</div>
 
-						<div className="flex-1 space-y-3 border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-6">
+						<div className="flex-1 space-y-3 border-t md:border-t-0 md:border-l border-black/10 dark:border-white/10 pt-6 md:pt-0 md:pl-6">
 							<div className="flex items-center gap-2 text-paper-400">
 								<DatabaseZap size={18} />
 								<h2 className="text-xs uppercase tracking-[0.2em] font-bold">
