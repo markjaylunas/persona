@@ -163,9 +163,9 @@ function FeatureCard({
 	description: string;
 }) {
 	return (
-		<Card className="bg-secondary">
+		<Card className="bg-secondary dark:bg-muted/30">
 			<CardContent className="pt-12 pb-14 px-10 flex flex-col items-center text-center space-y-6">
-				<div className="p-5 rounded-[2rem] bg-white dark:bg-muted/30 shadow-inner group-hover:scale-110 transition-transform duration-500">
+				<div className="p-5 rounded-[2rem] bg-white dark:bg-background shadow-inner group-hover:scale-110 transition-transform duration-500">
 					{icon}
 				</div>
 				<h3 className="text-xl sm:text-2xl font-bold tracking-tight">
