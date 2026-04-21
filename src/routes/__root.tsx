@@ -1,6 +1,8 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import ErrorPage from "@/components/common/error-page";
+import NotFound from "@/components/common/not-found";
 import { getThemeServerFn } from "@/components/layout/theme";
 import { META_CONSTANTS } from "@/lib/meta-constants";
 import { cn } from "@/lib/utils";
@@ -108,6 +110,10 @@ export const Route = createRootRoute({
 	}),
 	beforeLoad: async () => ({ theme: await getThemeServerFn() }),
 	shellComponent: RootDocument,
+	notFoundComponent: NotFound,
+	errorComponent: ({ error, reset }) => (
+		<ErrorPage error={error} reset={reset} />
+	),
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
