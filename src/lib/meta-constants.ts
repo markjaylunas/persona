@@ -15,7 +15,7 @@ export const META_CONSTANTS = {
 	twitterTitle: "Persona | Makje",
 	twitterDescription:
 		"Stop sharing links. Start sharing your Persona. All your brand identity, packed into one URL.",
-	twitterImage: "https://persona.makje.com/twitter-image.png",
+	twitterImage: "https://persona.makje.com/og-image.png",
 	twitterImageAlt: "Persona | Makje",
 	twitterSite: "@devmakje",
 	twitterCreator: "@devmakje",
