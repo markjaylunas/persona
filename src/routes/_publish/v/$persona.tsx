@@ -3,6 +3,7 @@ import { AlertTriangle } from "lucide-react";
 import PublishHeader from "@/components/layout/publish-header";
 import PersonaDetails from "@/components/persona/detail";
 import { decodePersona } from "@/lib/compression";
+import { META_CONSTANTS } from "@/lib/meta-constants";
 import { personaRouteValidator } from "@/lib/route-validators";
 
 export const Route = createFileRoute("/_publish/v/$persona")({
@@ -12,6 +13,30 @@ export const Route = createFileRoute("/_publish/v/$persona")({
 	loader: ({ params }) => {
 		const { persona, isFromCreation } = decodePersona(params.persona);
 		return { persona, isFromCreation };
+	},
+	head: ({ loaderData }) => {
+		const title = loaderData
+			? `${loaderData.persona.name} | Persona`
+			: "Persona | Makje";
+		const description = loaderData?.persona.about ?? META_CONSTANTS.description;
+		const image = loaderData?.persona.photoUrl ?? META_CONSTANTS.image;
+		return {
+			meta: [
+				{ title },
+				{ name: "description", content: description },
+				{ property: "og:title", content: title },
+				{ property: "og:description", content: description },
+				...(image ? [{ property: "og:image", content: image }] : []),
+				{ property: "og:type", content: "article" },
+				{
+					name: "twitter:card",
+					content: image ? META_CONSTANTS.twitterCard : "summary",
+				},
+				{ name: "twitter:title", content: title },
+				{ name: "twitter:description", content: description },
+				...(image ? [{ name: "twitter:image", content: image }] : []),
+			],
+		};
 	},
 });
 

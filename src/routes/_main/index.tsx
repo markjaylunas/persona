@@ -13,7 +13,9 @@ import PersonaDetails from "@/components/persona/detail";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
-export const Route = createFileRoute("/_main/")({ component: App });
+export const Route = createFileRoute("/_main/")({
+	component: App,
+});
 
 function App() {
 	return (
