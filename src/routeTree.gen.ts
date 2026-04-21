@@ -9,6 +9,8 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as MainRouteRouteImport } from './routes/_main/route'
 import { Route as CreationRouteRouteImport } from './routes/_creation/route'
 import { Route as MainIndexRouteImport } from './routes/_main/index'
@@ -18,6 +20,16 @@ import { Route as PublishVRouteRouteImport } from './routes/_publish/v/route'
 import { Route as CreationCreateIndexRouteImport } from './routes/_creation/create/index'
 import { Route as PublishVPersonaRouteImport } from './routes/_publish/v/$persona'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MainRouteRoute = MainRouteRouteImport.update({
   id: '/_main',
   getParentRoute: () => rootRouteImport,
@@ -59,6 +71,8 @@ const PublishVPersonaRoute = PublishVPersonaRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof MainIndexRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/v': typeof PublishVRouteRouteWithChildren
   '/privacy': typeof MainPrivacyRoute
   '/api/upload-image': typeof ApiUploadImageRoute
@@ -67,6 +81,8 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof MainIndexRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/v': typeof PublishVRouteRouteWithChildren
   '/privacy': typeof MainPrivacyRoute
   '/api/upload-image': typeof ApiUploadImageRoute
@@ -77,6 +93,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_creation': typeof CreationRouteRouteWithChildren
   '/_main': typeof MainRouteRouteWithChildren
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_publish/v': typeof PublishVRouteRouteWithChildren
   '/_main/privacy': typeof MainPrivacyRoute
   '/api/upload-image': typeof ApiUploadImageRoute
@@ -88,17 +106,29 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/v'
     | '/privacy'
     | '/api/upload-image'
     | '/v/$persona'
     | '/create/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/v' | '/privacy' | '/api/upload-image' | '/v/$persona' | '/create'
+  to:
+    | '/'
+    | '/robots.txt'
+    | '/sitemap.xml'
+    | '/v'
+    | '/privacy'
+    | '/api/upload-image'
+    | '/v/$persona'
+    | '/create'
   id:
     | '__root__'
     | '/_creation'
     | '/_main'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/_publish/v'
     | '/_main/privacy'
     | '/api/upload-image'
@@ -110,12 +140,28 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   CreationRouteRoute: typeof CreationRouteRouteWithChildren
   MainRouteRoute: typeof MainRouteRouteWithChildren
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   PublishVRouteRoute: typeof PublishVRouteRouteWithChildren
   ApiUploadImageRoute: typeof ApiUploadImageRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_main': {
       id: '/_main'
       path: ''
@@ -216,6 +262,8 @@ const PublishVRouteRouteWithChildren = PublishVRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   CreationRouteRoute: CreationRouteRouteWithChildren,
   MainRouteRoute: MainRouteRouteWithChildren,
+  RobotsDottxtRoute: RobotsDottxtRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   PublishVRouteRoute: PublishVRouteRouteWithChildren,
   ApiUploadImageRoute: ApiUploadImageRoute,
 }
