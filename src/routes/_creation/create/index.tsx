@@ -6,7 +6,7 @@ import { createRouteSearchParamValidator } from "@/lib/route-validators";
 
 export const Route = createFileRoute("/_creation/create/")({
 	head: () => ({
-		meta: [{ title: "Create Persona | Persona | Makje" }],
+		meta: [{ title: "Create Persona | Makje" }],
 	}),
 	validateSearch: createRouteSearchParamValidator,
 	loaderDeps: ({ search: { persona } }) => ({ persona }),
