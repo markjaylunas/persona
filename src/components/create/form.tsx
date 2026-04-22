@@ -177,6 +177,22 @@ export default function CreatePersonaForm({
 																);
 															}}
 														</form.AppField>
+
+														<form.AppField name={`links[${i}].order`}>
+															{(subField) => {
+																return (
+																	<subField.NumberField
+																		label="Order"
+																		placeholder="e.g. 1"
+																	>
+																		<p className="text-xs text-muted-foreground">
+																			Will be used as an icon only if order is
+																			set.
+																		</p>
+																	</subField.NumberField>
+																);
+															}}
+														</form.AppField>
 													</CardContent>
 												</Card>
 											);

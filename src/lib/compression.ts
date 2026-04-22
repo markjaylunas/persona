@@ -17,6 +17,7 @@ const mapPersonaToMinified = (data: Persona, isFromCreation?: boolean) => {
 			l: data.links.map((link) => ({
 				l: link.label,
 				u: link.url,
+				o: link.order,
 			})),
 		}),
 		...(isFromCreation && { _: true }),
@@ -31,6 +32,7 @@ const mapMinifiedToPersona = (data: MinifiedPersona): Persona => {
 		links: (data.l || []).map((link) => ({
 			label: link.l || "",
 			url: link.u || "",
+			order: link.o || 0,
 		})),
 	};
 };

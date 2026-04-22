@@ -5,6 +5,7 @@ import z from "zod";
 const linkSchema = z.object({
 	label: z.string().optional(),
 	url: z.url("Valid URL is required"),
+	order: z.number().default(0).optional(),
 });
 
 // --- Main Persona Form Schema ---
@@ -21,7 +22,20 @@ export const personaCreateFormSchema = z.object({
 		.or(z.literal("")),
 
 	email: z.email().optional().or(z.literal("")),
-	links: z.array(linkSchema).min(1, "At least one link is required"),
+	links: z
+		.array(linkSchema)
+		.min(1, "At least one link is required")
+		.refine(
+			(links) => {
+				const orders = links.map((link) => link.order);
+				const uniqueOrders = new Set(orders);
+				return uniqueOrders.size === orders.length;
+			},
+			{
+				message: "Orders must be unique",
+				path: ["links"],
+			},
+		),
 });
 
 // --- Types ---
@@ -46,9 +60,11 @@ export const mockPersonaValues: Persona = {
 	links: [
 		{
 			url: "https://github.com/markjaylunas",
+			order: 1,
 		},
 		{
 			url: "https://linkedin.com/in/markjaylunas",
+			order: 2,
 		},
 		{
 			label: "Portfolio",
@@ -70,6 +86,7 @@ export const minifiedPersonaSchema = z.object({
 			z.object({
 				l: linkSchema.shape.label,
 				u: linkSchema.shape.url,
+				o: linkSchema.shape.order,
 			}),
 		)
 		.optional(),
