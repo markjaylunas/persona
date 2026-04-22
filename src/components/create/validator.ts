@@ -2,64 +2,31 @@ import z from "zod";
 
 // --- Sub-Schemas for Field Arrays ---
 
-const link = z.url().optional().or(z.literal(""));
-
-// Social Links: Based on the fixed inputs in Image 0
-const socialLinksSchema = z.object({
-	facebook: link,
-	x: link,
-	instagram: link,
-	github: link,
-	telegram: link,
-	linkedin: link,
-	email: z.email().optional().or(z.literal("")),
-	youtube: link,
-	whatsapp: link,
-});
-
-// Custom Links: For the dynamic list in Image 1
-const customLinkSchema = z.object({
-	label: z.string().min(1, "Label is required"),
+const linkSchema = z.object({
+	label: z.string().optional(),
 	url: z.url("Valid URL is required"),
 });
 
 // --- Main Persona Form Schema ---
 
-export const personaCreateFormSchema = z
-	.object({
-		// Profile Section
-		name: z.string().min(1, "Name is required").max(50),
-		about: z.string().max(250).optional(),
+export const personaCreateFormSchema = z.object({
+	// Profile Section
+	name: z.string().min(1, "Name is required").max(50),
+	about: z.string().max(250).optional(),
 
-		// Avatar handled as a simple URL string
-		photoUrl: z
-			.url("Please enter a valid image URL")
-			.optional()
-			.or(z.literal("")),
+	// Avatar handled as a simple URL string
+	photoUrl: z
+		.url("Please enter a valid image URL")
+		.optional()
+		.or(z.literal("")),
 
-		// Social Links Section
-		socials: socialLinksSchema,
-
-		// Custom Links Section
-		customLinks: z.array(customLinkSchema),
-	})
-	.refine(
-		(data) => {
-			return (
-				Object.values(data.socials).some((value) => value !== "") ||
-				data.customLinks.length > 0
-			);
-		},
-		{
-			message: "At least one social link or custom link is required",
-			path: ["links"],
-		},
-	);
+	email: z.email().optional().or(z.literal("")),
+	links: z.array(linkSchema).min(1, "At least one link is required"),
+});
 
 // --- Types ---
 
 export type Persona = z.infer<typeof personaCreateFormSchema>;
-export type CustomLink = z.infer<typeof customLinkSchema>;
 
 // --- Default Values ---
 
@@ -67,30 +34,22 @@ export const defaultValues: Persona = {
 	name: "",
 	about: "",
 	photoUrl: "",
-	socials: {
-		facebook: "",
-		x: "",
-		instagram: "",
-		github: "",
-		telegram: "",
-		linkedin: "",
-		email: "",
-		youtube: "",
-		whatsapp: "",
-	},
-	customLinks: [],
+	email: "",
+	links: [],
 };
 export const mockPersonaValues: Persona = {
 	name: "Makje",
 	about:
 		"Full-stack Web Developer with a passion for learning and building. From back-end logic to front-end polish, I enjoy solving complex problems and creating modern solutions.",
 	photoUrl: "https://makje.com/makje-textured.avif",
-	socials: {
-		github: "https://github.com/markjaylunas",
-		linkedin: "https://linkedin.com/in/markjaylunas",
-		email: "markjay.lunas@gmail.com",
-	},
-	customLinks: [
+	email: "markjay.lunas@gmail.com",
+	links: [
+		{
+			url: "https://github.com/markjaylunas",
+		},
+		{
+			url: "https://linkedin.com/in/markjaylunas",
+		},
 		{
 			label: "Portfolio",
 			url: "https://makje.com",
@@ -105,24 +64,12 @@ export const minifiedPersonaSchema = z.object({
 	n: personaCreateFormSchema.shape.name,
 	a: personaCreateFormSchema.shape.about,
 	p: personaCreateFormSchema.shape.photoUrl,
-	s: z
-		.object({
-			e: personaCreateFormSchema.shape.socials.shape.email,
-			f: link,
-			g: link,
-			i: link,
-			l: link,
-			t: link,
-			w: link,
-			x: link,
-			y: link,
-		})
-		.optional(),
-	c: z
+
+	l: z
 		.array(
 			z.object({
-				l: customLinkSchema.shape.label,
-				u: customLinkSchema.shape.url,
+				l: linkSchema.shape.label,
+				u: linkSchema.shape.url,
 			}),
 		)
 		.optional(),

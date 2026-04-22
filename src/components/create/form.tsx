@@ -1,22 +1,14 @@
 import { revalidateLogic } from "@tanstack/react-form";
 import { useNavigate } from "@tanstack/react-router";
-import {
-	Eye,
-	Mail,
-	Plus,
-	RotateCcw,
-	RotateCw,
-	Sparkles,
-	X,
-} from "lucide-react";
+import { Eye, Plus, RotateCcw, RotateCw, Sparkles, X } from "lucide-react";
 import { useAppForm } from "@/components/form/context";
 import { Button } from "@/components/ui/button";
 import { encodePersona } from "@/lib/compression";
 import { IMAGE_ACCEPTED_MIME_TYPES } from "@/lib/constants";
 import { uploadToImgbb } from "@/lib/upload-to-imgbb";
 import { cn } from "@/lib/utils";
+import LinkIcon from "../common/link-icon";
 import ImagePreview from "../form/common/image-preview";
-import { Icon } from "../icon/library";
 import PersonaDetails from "../persona/detail";
 import { ButtonGroup } from "../ui/button-group";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -119,103 +111,23 @@ export default function CreatePersonaForm({
 					)}
 				</form.AppField>
 
-				{/* Social Links Section */}
-				<Card>
-					<CardHeader>
-						<CardTitle>Social Links</CardTitle>
-					</CardHeader>
-					<CardContent className="space-y-4">
-						<form.AppField name="socials.email">
-							{(field) => (
-								<field.TextField
-									label="Email"
-									placeholder="your.email@example.com"
-									left={<Mail />}
-								/>
-							)}
-						</form.AppField>
-						<form.AppField name="socials.facebook">
-							{(field) => (
-								<field.TextField
-									label="Facebook URL"
-									placeholder="https://facebook.com/username"
-									left={<Icon icon="facebook" />}
-								/>
-							)}
-						</form.AppField>
-						<form.AppField name="socials.x">
-							{(field) => (
-								<field.TextField
-									label="X URL"
-									placeholder="https://x.com/username"
-									left={<Icon icon="x" className="fill-white" />}
-								/>
-							)}
-						</form.AppField>
-						<form.AppField name="socials.instagram">
-							{(field) => (
-								<field.TextField
-									label="Instagram URL"
-									placeholder="https://instagram.com/username"
-									left={<Icon icon="instagram" />}
-								/>
-							)}
-						</form.AppField>
-						<form.AppField name="socials.github">
-							{(field) => (
-								<field.TextField
-									label="GitHub URL"
-									placeholder="https://github.com/username"
-									left={<Icon icon="github" />}
-								/>
-							)}
-						</form.AppField>
-						<form.AppField name="socials.linkedin">
-							{(field) => (
-								<field.TextField
-									label="LinkedIn URL"
-									placeholder="https://linkedin.com/in/username"
-									left={<Icon icon="linkedin" />}
-								/>
-							)}
-						</form.AppField>
-						<form.AppField name="socials.telegram">
-							{(field) => (
-								<field.TextField
-									label="Telegram URL"
-									placeholder="https://t.me/username"
-									left={<Icon icon="telegram" />}
-								/>
-							)}
-						</form.AppField>
-						<form.AppField name="socials.youtube">
-							{(field) => (
-								<field.TextField
-									label="YouTube URL"
-									placeholder="https://youtube.com/@username"
-									left={<Icon icon="youtube" />}
-								/>
-							)}
-						</form.AppField>
-						<form.AppField name="socials.whatsapp">
-							{(field) => (
-								<field.TextField
-									label="WhatsApp URL"
-									placeholder="https://wa.me/number"
-									left={<Icon icon="whatsapp" />}
-								/>
-							)}
-						</form.AppField>
-					</CardContent>
-				</Card>
+				{/* About Field */}
+				<form.AppField name="email">
+					{(field) => (
+						<field.TextField
+							label="Email"
+							placeholder="your.email@example.com"
+						/>
+					)}
+				</form.AppField>
 
 				{/* Custom Links Section */}
 				<Card>
 					<CardHeader>
-						<CardTitle>Custom Links</CardTitle>
+						<CardTitle>Social & Links</CardTitle>
 					</CardHeader>
 					<CardContent>
-						<form.AppField name="customLinks">
+						<form.AppField name="links">
 							{(field) => (
 								<div className="space-y-4">
 									<div className="space-y-3">
@@ -239,18 +151,23 @@ export default function CreatePersonaForm({
 													</CardHeader>
 
 													<CardContent className="space-y-4 pt-6 px-5 pb-5">
-														<form.AppField name={`customLinks[${i}].url`}>
+														<form.AppField name={`links[${i}].url`}>
 															{(subField) => {
 																return (
 																	<subField.TextField
 																		label="URL"
 																		placeholder="https://example.com"
+																		left={
+																			<LinkIcon
+																				url={subField.state.value ?? ""}
+																			/>
+																		}
 																	/>
 																);
 															}}
 														</form.AppField>
 
-														<form.AppField name={`customLinks[${i}].label`}>
+														<form.AppField name={`links[${i}].label`}>
 															{(subField) => {
 																return (
 																	<subField.TextField
